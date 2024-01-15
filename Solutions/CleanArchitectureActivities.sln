@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "..\src\API\WebApi.csproj", "{77C14BF0-50FF-47A5-A49A-94AB2816B0B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "..\src\Server\API\WebApi.csproj", "{77C14BF0-50FF-47A5-A49A-94AB2816B0B7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{CF7035BA-30B8-48DD-8E85-E00E105A1EE9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{8EF5C450-4CC3-4EA7-9D0A-9F24BB9C69AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "..\src\Application\Application.csproj", "{03C40704-46B7-4941-A359-3B080E540917}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "..\src\Server\Application\Application.csproj", "{03C40704-46B7-4941-A359-3B080E540917}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{F6A31633-3B48-4461-BB4E-75C9ADFB9639}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "..\src\Domain\Domain.csproj", "{637CE22D-BAAB-41F8-8F15-8813793ACA52}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "..\src\Server\Domain\Domain.csproj", "{637CE22D-BAAB-41F8-8F15-8813793ACA52}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{9DC9BA46-036F-4173-BA5F-3317A30E9BB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "..\src\Persistence\Persistence.csproj", "{0E2F6FB8-63E8-463E-A270-881688864FBC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "..\src\Server\Persistence\Persistence.csproj", "{0E2F6FB8-63E8-463E-A270-881688864FBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
