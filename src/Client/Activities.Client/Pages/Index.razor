@@ -1,0 +1,29 @@
+﻿@page "/"
+
+@inject ActivitiesService ActivitiesService
+
+<PageTitle>CleanActivities</PageTitle>
+
+<h1><MudIcon Icon="@Icons.Material.Filled.People" Size="Size.Large"/> <MudSpacer/> CleanActivities</h1>
+
+
+@if (_activities is null)
+{
+    <h5>Sorry, cannot find any activities...</h5>
+}
+else
+{
+    @foreach(var activity in _activities)
+    {
+        <h5>@activity.Title</h5>
+    }
+}
+
+@code {
+    private IEnumerable<ActivityDto>? _activities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _activities = await ActivitiesService.GetActivities();        
+    }
+}
