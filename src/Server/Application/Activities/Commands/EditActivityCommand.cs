@@ -21,6 +21,10 @@ namespace Application.Activities.Commands
             var activity = await _dataContext.Activities.FindAsync(request.Activity.Id);
 
             activity.Title = string.IsNullOrWhiteSpace(request.Activity.Title) ? activity.Title : request.Activity.Title;
+            activity.Category = string.IsNullOrWhiteSpace(request.Activity.Category) ? activity.Category : request.Activity.Category;
+            activity.Venue = string.IsNullOrWhiteSpace(request.Activity.Venue) ? activity.Venue : request.Activity.Venue;
+            activity.City = string.IsNullOrWhiteSpace(request.Activity.City) ? activity.City : request.Activity.City;
+            activity.Description = string.IsNullOrWhiteSpace(request.Activity.Description) ? activity.Description : request.Activity.Description;
 
             await _dataContext.SaveChangesAsync();
         }
