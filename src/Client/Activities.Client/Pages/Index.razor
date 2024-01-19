@@ -6,18 +6,7 @@
 
 <h1 class="d-inline-block"><MudIcon Icon="@Icons.Material.Filled.People" Size="Size.Large"/> CleanActivities</h1>
 
-
-@if (_activities is null)
-{
-    <h5>Sorry, cannot find any activities...</h5>
-}
-else
-{
-    @foreach(var activity in _activities)
-    {
-        <h5>@activity.Title</h5>
-    }
-}
+<ActivityDashboard Activities="_activities"/>
 
 @code {
     private IEnumerable<ActivityDto>? _activities;

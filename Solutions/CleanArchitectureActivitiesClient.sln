@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{417484
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{502CD10F-EBFD-4B90-8075-E36DC3062F34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Activities.Services", "..\src\Client\Activities.Services\Activities.Services.csproj", "{EF8AADCA-3FBC-4754-B28B-3686B3B61416}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Activities.Services", "..\src\Client\Activities.Services\Activities.Services.csproj", "{EF8AADCA-3FBC-4754-B28B-3686B3B61416}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{8FD98F3B-A495-41CB-9D19-CF7536FC0D83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Activities.Models", "..\src\Client\Activities.Models\Activities.Models.csproj", "{F08FA529-C59B-4BDF-83D8-DBDA284AC77C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Activities.Models", "..\src\Client\Activities.Models\Activities.Models.csproj", "{F08FA529-C59B-4BDF-83D8-DBDA284AC77C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

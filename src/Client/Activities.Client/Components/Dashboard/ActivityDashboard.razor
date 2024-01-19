@@ -1,0 +1,15 @@
+﻿<MudGrid>
+    <MudItem xs="8">
+        @if (Activities is null)
+        {
+            <h5>Sorry, cannot find any activities...</h5>
+        }
+        else
+        {
+            @foreach (var activity in Activities)
+            {
+                <h5>@activity.Title</h5>
+            }
+        }
+    </MudItem>
+</MudGrid>
