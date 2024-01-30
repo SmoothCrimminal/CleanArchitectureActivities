@@ -1,0 +1,35 @@
+﻿@if (Activity is null && CreateMode)
+{
+    <MudForm>
+        <MudTextField T="string" Placeholder="Title" />
+        <MudTextField T="string" Placeholder="Description" Lines="5" />
+        <MudTextField T="string" Placeholder="Category" />
+        <MudDatePicker Label="Date" DateFormat="dd.MM.yyyy" />
+        <MudTextField T="string" Placeholder="City" />
+        <MudTextField T="string" Placeholder="Venue" />
+        <div style="float: right; margin: 10px; padding: 10px">
+            <MudButton Color="Color.Success" Variant="Variant.Filled" Style="margin-right: 10px">Submit</MudButton>
+            <MudButton Color="Color.Surface" Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
+        </div>
+    </MudForm>
+}
+else if (Activity is not null && EditMode)
+{
+    <MudForm>
+        <MudTextField T="string" Text="@Activity.Title"/>
+        <MudTextField T="string" Text="@Activity.Description" Lines="5" />
+        <MudTextField T="string" Text="@Activity.Category"/>
+        <MudDatePicker Label="Date" DateFormat="dd.MM.yyyy" Date="@Activity.Date"/>
+        <MudTextField T="string" Text="@Activity.City"/>
+        <MudTextField T="string" Text="@Activity.Venue"/>
+        <div style="float: right; margin: 10px; padding: 10px">
+            <MudButton Color="Color.Success" Variant="Variant.Filled" Style="margin-right: 10px">Submit</MudButton>
+            <MudButton Color="Color.Surface" Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
+        </div>
+    </MudForm>
+}
+else
+{
+    
+}
+

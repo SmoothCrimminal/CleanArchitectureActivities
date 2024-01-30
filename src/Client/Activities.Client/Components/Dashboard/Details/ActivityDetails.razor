@@ -1,0 +1,17 @@
+﻿@if (Activity is not null)
+{
+    <MudCard>
+        <MudCardMedia Image=@($"images/categoryImages/{Activity?.Category}.jpg") />
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">@Activity?.Title</MudText>
+                <MudText Typo="Typo.subtitle1">@Activity?.Date</MudText>
+                <MudText Typo="Typo.body1">@Activity?.Description</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardActions>
+            <MudButton Color="Color.Info" OnClick="Edit">Edit</MudButton>
+            <MudButton Color="Color.Surface" OnClick="Cancel">Cancel</MudButton>
+        </MudCardActions>
+    </MudCard>
+}

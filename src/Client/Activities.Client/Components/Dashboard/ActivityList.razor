@@ -1,0 +1,27 @@
+﻿@if (Activities is null || Activities.Count() <= 0)
+{
+    <h5>Sorry, cannot find any activities...</h5>
+}
+else
+{
+    @foreach (var activity in Activities)
+    {
+        <MudCard Elevation="2" Outlined="true" Style="margin-bottom: 20px">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">@activity.Title</MudText>
+                    <MudText Typo="Typo.subtitle1">@activity.Date</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>@activity.Description</MudText>
+                <MudText Style="margin-bottom: 8px">@activity.City, @activity.Venue</MudText>
+                <MudButton Disabled="true" Variant="Variant.Outlined">@activity.Category</MudButton>
+            </MudCardContent>
+            <MudCardActions Style="justify-content: end;">
+                <MudButton Color="Color.Error" Variant="Variant.Filled" Style="width: 100px" OnClick="() => Delete(activity)">Delete</MudButton>
+                <MudButton Color="Color.Info" Variant="Variant.Filled" Style="width: 100px; margin-left: 10px" OnClick="() => SelectActivity(activity)">View</MudButton>
+            </MudCardActions>
+        </MudCard>
+    }
+}

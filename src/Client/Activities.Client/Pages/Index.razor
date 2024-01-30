@@ -2,9 +2,12 @@
 
 @inject ActivitiesService ActivitiesService
 
-<PageTitle>CleanActivities</PageTitle>
+<PageTitle>Clean Activities</PageTitle>
 
-<h1 class="d-inline-block"><MudIcon Icon="@Icons.Material.Filled.People" Size="Size.Large"/> CleanActivities</h1>
+<div style="display: flex; align-content: center; text-align: center; margin-bottom: 10px">
+    <MudIcon Icon="@Icons.Material.Filled.People" Size="Size.Large" Style="margin-right: 25px"/>
+    <MudText Typo="Typo.h4">Clean Activities</MudText>
+</div>
 
 <ActivityDashboard Activities="_activities"/>
 

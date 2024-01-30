@@ -1,10 +1,7 @@
-﻿<MudContainer Fixed="true">
-    <MudNavMenu Dense="true" Class="d-flex justify-content-around align-items-center" Style="color: whitesmoke" Bordered="true">
-        <MudNavLink>
-            <MudImage Src="images/logo.png" Width="50"/>
-            Activities
-        </MudNavLink>
-        <MudNavLink>Activities</MudNavLink>
-        <MudNavLink>Create Activity</MudNavLink>
-    </MudNavMenu>
-</MudContainer>
+﻿@inject NavigationManager NavigationManager
+
+<MudTabs Elevation="2" Color="Color.Info">
+        <MudTabPanel Icon="@Icons.Material.Filled.People" Text="Activities" OnClick="@(() => NavigationManager.NavigateTo("/"))"/>
+        <MudTabPanel Text="Activities" />
+        <MudTabPanel Text="Create Activity" OnClick="@(() => NavigationManager.NavigateTo("/CreateActivity"))"/>
+</MudTabs>
