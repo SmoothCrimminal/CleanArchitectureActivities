@@ -1,28 +1,28 @@
-﻿using Activities.Models.Dtos;
+﻿using Activities.Client.ViewModels;
 using Microsoft.AspNetCore.Components;
 
 namespace Activities.Client.Components.Dashboard.Details
 {
     public partial class ActivityDetails
     {
-        private ActivityDto? _activityDto;
+        private ActivityViewModel? _activityViewModel;
 
         [Parameter]
-        public ActivityDto? Activity 
+        public ActivityViewModel? Activity 
         { 
-            get => _activityDto; 
+            get => _activityViewModel; 
             set
             {
-                if (_activityDto == value) 
+                if (_activityViewModel == value) 
                     return;
 
-                _activityDto = value;
+                _activityViewModel = value;
                 ActivityChanged.InvokeAsync(value);
             } 
         }
 
         [Parameter]
-        public EventCallback<ActivityDto?> ActivityChanged { get; set; }
+        public EventCallback<ActivityViewModel?> ActivityChanged { get; set; }
 
         [Parameter]
         public bool EditRequested { get; set; }

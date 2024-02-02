@@ -1,4 +1,6 @@
-﻿@if (Activities is null || Activities.Count() <= 0)
+﻿@inject ActivitiesService ActivitiesService
+
+@if (Activities is null || Activities.Count() <= 0)
 {
     <h5>Sorry, cannot find any activities...</h5>
 }

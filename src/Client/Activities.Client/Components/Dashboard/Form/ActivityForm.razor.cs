@@ -1,28 +1,29 @@
-﻿using Activities.Models.Dtos;
+﻿using Activities.Client.ViewModels;
+using Activities.Models.Dtos;
 using Microsoft.AspNetCore.Components;
 
 namespace Activities.Client.Components.Dashboard.Form
 {
     public partial class ActivityForm
     {
-        private ActivityDto? _activityDto;
+        private ActivityViewModel _activityViewModel = new();
 
         [Parameter]
-        public ActivityDto? Activity 
+        public ActivityViewModel Activity 
         { 
-            get => _activityDto; 
+            get => _activityViewModel; 
             set
             {
-                if (_activityDto == value) 
+                if (_activityViewModel == value) 
                     return;
 
-                _activityDto = value;
+                _activityViewModel = value;
                 ActivityChanged.InvokeAsync(value);
             } 
         }
 
         [Parameter]
-        public EventCallback<ActivityDto?> ActivityChanged { get; set; }
+        public EventCallback<ActivityViewModel?> ActivityChanged { get; set; }
 
         private bool _editMode = false;
 
@@ -66,6 +67,22 @@ namespace Activities.Client.Components.Dashboard.Form
         {
             CreateMode = false;
             EditMode = false;
+        }
+
+        private async Task HandleActivityEditOrCreation()
+        {
+            var dto = (ActivityDto)Activity;
+
+            if (CreateMode)
+            {
+                dto.Id = Guid.NewGuid();
+
+                await ActivitiesService.CreateActivity(dto);
+            }
+            else
+                await ActivitiesService.UpdateActivity(dto);
+
+            StateHasChanged();
         }
     }
 }

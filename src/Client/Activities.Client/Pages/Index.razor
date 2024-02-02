@@ -12,10 +12,17 @@
 <ActivityDashboard Activities="_activities"/>
 
 @code {
-    private IEnumerable<ActivityDto>? _activities;
+    private List<ActivityViewModel>? _activities;
 
     protected override async Task OnInitializedAsync()
     {
-        _activities = await ActivitiesService.GetActivities();        
+        var activities = await ActivitiesService.GetActivities();
+        if (activities is null || !activities.Any())
+            return;
+
+        _activities = new List<ActivityViewModel>();
+
+        foreach (var activity in activities)
+            _activities.Add((ActivityViewModel)activity);
     }
 }

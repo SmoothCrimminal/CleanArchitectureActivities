@@ -1,32 +1,36 @@
-﻿@if (Activity is null && CreateMode)
+﻿@inject ActivitiesService ActivitiesService
+
+@if (CreateMode)
 {
-    <MudForm>
-        <MudTextField T="string" Placeholder="Title" />
-        <MudTextField T="string" Placeholder="Description" Lines="5" />
-        <MudTextField T="string" Placeholder="Category" />
-        <MudDatePicker Label="Date" DateFormat="dd.MM.yyyy" />
-        <MudTextField T="string" Placeholder="City" />
-        <MudTextField T="string" Placeholder="Venue" />
-        <div style="float: right; margin: 10px; padding: 10px">
-            <MudButton Color="Color.Success" Variant="Variant.Filled" Style="margin-right: 10px">Submit</MudButton>
+    <EditForm Model="@Activity" OnValidSubmit="HandleActivityEditOrCreation">
+        <DataAnnotationsValidator />
+        <MudTextField T="string" Placeholder="Title" @bind-Value="Activity.Title" For="@(() => Activity.Title)"/>
+        <MudTextField T="string" Placeholder="Description" Lines="5" @bind-Value="Activity.Description" For="@(() => Activity.Description)"/>
+        <MudTextField T="string" Placeholder="Category" @bind-Value="Activity.Category" For="@(() => Activity.Category)"/>
+        <MudDatePicker Label="Date" DateFormat="dd.MM.yyyy" @bind-Date="Activity.Date" For="@(() => Activity.Date)"/>
+        <MudTextField T="string" Placeholder="City" @bind-Value="Activity.City" For="@(() => Activity.City)"/>
+        <MudTextField T="string" Placeholder="Venue" @bind-Value="Activity.Venue" For="@(() => Activity.Venue)"/>
+        <MudCardActions style="float: right; margin: 10px; padding: 10px">
+            <MudButton Color="Color.Success" Variant="Variant.Filled" ButtonType="ButtonType.Submit" Style="margin-right: 10px">Submit</MudButton>
             <MudButton Color="Color.Surface" Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
-        </div>
-    </MudForm>
+        </MudCardActions>
+    </EditForm>
 }
-else if (Activity is not null && EditMode)
+else if (EditMode)
 {
-    <MudForm>
-        <MudTextField T="string" Text="@Activity.Title"/>
-        <MudTextField T="string" Text="@Activity.Description" Lines="5" />
-        <MudTextField T="string" Text="@Activity.Category"/>
-        <MudDatePicker Label="Date" DateFormat="dd.MM.yyyy" Date="@Activity.Date"/>
-        <MudTextField T="string" Text="@Activity.City"/>
-        <MudTextField T="string" Text="@Activity.Venue"/>
-        <div style="float: right; margin: 10px; padding: 10px">
-            <MudButton Color="Color.Success" Variant="Variant.Filled" Style="margin-right: 10px">Submit</MudButton>
+    <EditForm Model="@Activity" OnValidSubmit="HandleActivityEditOrCreation">
+        <DataAnnotationsValidator />
+        <MudTextField T="string" Text="@Activity.Title" @bind-Value="Activity.Title" For="@(() => Activity.Title)"/>
+        <MudTextField T="string" Text="@Activity.Description" Lines="5" @bind-Value="Activity.Description" For="@(() => Activity.Description)" />
+        <MudTextField T="string" Text="@Activity.Category" @bind-Value="Activity.Category" For="@(() => Activity.Category)" />
+        <MudDatePicker Label="Date" DateFormat="dd.MM.yyyy" @bind-Date="Activity.Date" For="@(() => Activity.Date)" />
+        <MudTextField T="string" Text="@Activity.City" @bind-Value="Activity.City" For="@(() => Activity.City)" />
+        <MudTextField T="string" Text="@Activity.Venue" @bind-Value="Activity.Venue" For="@(() => Activity.Venue)" />
+        <MudCardActions style="float: right; margin: 10px; padding: 10px">
+            <MudButton Color="Color.Success" Variant="Variant.Filled" ButtonType="ButtonType.Submit" Style="margin-right: 10px">Submit</MudButton>
             <MudButton Color="Color.Surface" Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
-        </div>
-    </MudForm>
+        </MudCardActions>
+    </EditForm>
 }
 else
 {

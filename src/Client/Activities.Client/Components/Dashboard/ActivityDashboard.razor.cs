@@ -1,4 +1,4 @@
-﻿using Activities.Models.Dtos;
+﻿using Activities.Client.ViewModels;
 using Microsoft.AspNetCore.Components;
 
 namespace Activities.Client.Components.Dashboard
@@ -6,9 +6,9 @@ namespace Activities.Client.Components.Dashboard
     public partial class ActivityDashboard
     {
         [Parameter, EditorRequired]
-        public IEnumerable<ActivityDto>? Activities { get; set; }
+        public IEnumerable<ActivityViewModel>? Activities { get; set; }
 
-        public ActivityDto? SelectedActivity { get; set; }
+        public ActivityViewModel? SelectedActivity { get; set; }
 
         public bool EditMode { get; set; }
     }

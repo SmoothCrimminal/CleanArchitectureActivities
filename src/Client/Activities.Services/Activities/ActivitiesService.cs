@@ -14,5 +14,14 @@ namespace Activities.Services.Activities
 
         public async Task<IEnumerable<ActivityDto>?> GetActivities()
             => await _httpClient.GetFromJsonAsync<IEnumerable<ActivityDto>>("/api/activities");
+
+        public async Task UpdateActivity(ActivityDto dto)
+            => await _httpClient.PutAsJsonAsync($"/api/activities/{dto.Id}", dto);
+
+        public async Task CreateActivity(ActivityDto dto)
+            => await _httpClient.PostAsJsonAsync("/api/activities", dto);
+
+        public async Task DeleteActivity(Guid id)
+            => await _httpClient.DeleteAsync($"/api/activities/{id}");
     }
 }
