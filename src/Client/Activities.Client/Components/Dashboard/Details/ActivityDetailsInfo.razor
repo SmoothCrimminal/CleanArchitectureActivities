@@ -1,0 +1,26 @@
+﻿<MudPaper Height="150px" Style="padding: 10px">
+    <MudGrid>
+        <MudItem xs="12" Class="gridItem">
+            <MudIcon Icon="@Icons.Material.Filled.Info" />
+            <p>@Activity.Description</p>
+        </MudItem>
+        <MudDivider />
+        <MudItem xs="12" Class="gridItem">
+            <MudIcon Icon="@Icons.Material.Filled.EditCalendar" />
+            <p>@Activity.Date</p>
+        </MudItem>
+        <MudDivider />
+        <MudItem xs="12" Class="gridItem">
+            <MudIcon Icon="@Icons.Material.Filled.LocationCity" />
+            <p>@Activity.Venue, @Activity.City</p>
+        </MudItem>
+    </MudGrid>
+</MudPaper>
+
+<style>
+    .gridItem {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+</style>

@@ -2,6 +2,6 @@
 
 <MudTabs Elevation="2" Color="Color.Info">
         <MudTabPanel Icon="@Icons.Material.Filled.People" Text="Activities" OnClick="@(() => NavigationManager.NavigateTo("/"))"/>
-        <MudTabPanel Text="Activities" />
+        <MudTabPanel Text="Activities" OnClick="@(() => NavigationManager.NavigateTo("/Activities"))"/>
         <MudTabPanel Text="Create Activity" OnClick="@(() => NavigationManager.NavigateTo("/CreateActivity"))"/>
 </MudTabs>

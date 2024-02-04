@@ -7,9 +7,5 @@ namespace Activities.Client.Components.Dashboard
     {
         [Parameter, EditorRequired]
         public IEnumerable<ActivityViewModel>? Activities { get; set; }
-
-        public ActivityViewModel? SelectedActivity { get; set; }
-
-        public bool EditMode { get; set; }
     }
 }

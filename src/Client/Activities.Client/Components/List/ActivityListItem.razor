@@ -1,0 +1,29 @@
+﻿@inject ActivitiesService ActivitiesService
+@inject NavigationManager NavigationManager
+
+<MudCard Elevation="2" Outlined="true" Style="margin-bottom: 20px">
+    <MudCardHeader>
+        <CardHeaderAvatar>
+            <MudImage Src="/images/user.png" Height="50" Style="border-radius: 50%"/>
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.body1"><b>@Activity.Title</b></MudText>
+            <MudText Typo="Typo.caption">Hosted by Bob</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent Style="display: flex; gap: 10px; align-items: center">
+        <MudIcon Icon="@Icons.Material.Filled.LockClock" />
+        <MudText Typo="Typo.body2">@Activity.Date.Value</MudText>     
+        <MudIcon Icon="@Icons.Material.Filled.LocationCity"/>
+        <MudText Typo="Typo.body2">@Activity.City</MudText>
+    </MudCardContent>
+    <MudDivider />
+    <MudCardContent Style="background-color: whitesmoke">
+        Attendees
+    </MudCardContent>
+    <MudDivider />
+    <MudCardActions Style="justify-content: space-between">
+        <MudText Typo="Typo.body2">@Activity.Description</MudText>
+        <MudButton Color="Color.Info" Variant="Variant.Filled" Style="width: 100px; margin-left: 10px" OnClick="ViewActivity">View</MudButton>
+    </MudCardActions>
+</MudCard>

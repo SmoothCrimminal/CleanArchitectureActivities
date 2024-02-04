@@ -23,5 +23,8 @@ namespace Activities.Services.Activities
 
         public async Task DeleteActivity(Guid id)
             => await _httpClient.DeleteAsync($"/api/activities/{id}");
+
+        public async Task<ActivityDto?> GetActivityById(Guid id)
+            => await _httpClient.GetFromJsonAsync<ActivityDto?>($"/api/activities/{id}");
     }
 }

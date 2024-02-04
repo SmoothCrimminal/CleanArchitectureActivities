@@ -1,0 +1,13 @@
+﻿<MudGrid>
+    <MudItem xs="1" Style="display: flex; align-items: center; margin-bottom: 25px">
+        <MudImage Src="@(AvatarSrc ?? "/images/user.png")" Height="40"/>
+    </MudItem>
+    <MudItem xs="11" Style="display: flex; flex-direction: column; gap: 4px">
+        <div style="display: flex; gap: 10px">
+            <MudText Typo="Typo.body2"><b>@Author</b>,</MudText>
+            <MudText Typo="Typo.caption" Color="Color.Surface">@TimeOfPosting</MudText>
+        </div>
+        <MudText Typo="Typo.body1">@CommentContent</MudText>
+        <MudLink Color="Color.Surface" Typo="Typo.caption">Reply</MudLink>
+    </MudItem>
+</MudGrid>

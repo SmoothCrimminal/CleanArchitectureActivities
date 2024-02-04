@@ -1,0 +1,19 @@
+﻿@page "/Activities/{ActivityId:guid}"
+
+@inject ActivitiesService ActivitiesService
+
+<div style="padding: 15px; margin: 10px">
+    @if (_activityDto is null)
+    {
+        <MudText Typo="Typo.body1">Sorry cannot find activity with given id</MudText>
+    }
+    else
+    {
+        <div style="display: flex; justify-content: center">
+            <div style="display: flex; flex-direction: column; gap: 10px; width: 50vw">
+                <ActivityDetails Activity="_activityDto" @bind-EditRequested="@EditRequested" />
+                <ActivityForm Activity="_activityDto" @bind-EditMode="@EditRequested" />
+            </div>
+        </div>
+    }
+</div>

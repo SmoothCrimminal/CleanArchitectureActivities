@@ -1,0 +1,21 @@
+﻿@page "/Activities"
+
+@inject ActivitiesService ActivitiesService
+
+<ActivityDashboard Activities="_activities" />
+
+@code {
+    private List<ActivityViewModel>? _activities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var activities = await ActivitiesService.GetActivities();
+        if (activities is null || !activities.Any())
+            return;
+
+        _activities = new List<ActivityViewModel>();
+
+        foreach (var activity in activities)
+            _activities.Add((ActivityViewModel)activity);
+    }
+}

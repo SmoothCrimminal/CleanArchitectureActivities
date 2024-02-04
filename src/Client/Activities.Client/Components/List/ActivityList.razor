@@ -1,0 +1,16 @@
+﻿@if (Activities is null || Activities.Count() <= 0)
+{
+    <h5>Sorry, cannot find any activities...</h5>
+}
+else
+{
+    @foreach (var activityGroupedByDate in _activitiesGroupedByDate)
+    {
+        <MudText Typo="Typo.caption">@(activityGroupedByDate.Key.HasValue ? activityGroupedByDate.Key.Value : string.Empty)</MudText>
+
+        @foreach(var activity in activityGroupedByDate)
+        {
+            <ActivityListItem Activity="@activity" />
+        }
+    }
+}

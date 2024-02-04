@@ -1,9 +1,8 @@
-﻿<MudGrid>
+﻿<MudGrid Style="padding: 15px; margin: 10px">
     <MudItem xs="8">
-        <ActivityList Activities="Activities" @bind-SelectedActivity="@SelectedActivity" />
+        <ActivityList Activities="@Activities"/>
     </MudItem>
-    <MudItem xs="4">
-        <ActivityDetails @bind-Activity="@SelectedActivity" @bind-EditRequested="@EditMode"/>
-        <ActivityForm @bind-Activity="@SelectedActivity" @bind-EditMode="@EditMode"/>
+    <MudItem xs="3">
+        <ActivityFilters />
     </MudItem>
 </MudGrid>

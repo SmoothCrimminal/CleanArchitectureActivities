@@ -1,28 +1,26 @@
 ﻿@page "/"
 
-@inject ActivitiesService ActivitiesService
-
-<PageTitle>Clean Activities</PageTitle>
-
-<div style="display: flex; align-content: center; text-align: center; margin-bottom: 10px">
-    <MudIcon Icon="@Icons.Material.Filled.People" Size="Size.Large" Style="margin-right: 25px"/>
-    <MudText Typo="Typo.h4">Clean Activities</MudText>
+<div class="homePage">
+    <div style="display: flex; justify-content: center; align-items: center; gap: 10px">
+        <MudImage Src="images/logo.png" Style="margin-bottom: 12px" />
+        <MudText Typo="Typo.h3" Style="color: white">Clean Activities</MudText>
+    </div>
+    <MudText Typo="Typo.h4" Style="margin-bottom: 10px">Welcome to Clean Activities</MudText>
+    <MudButton Size="Size.Large" Href="/Activities" Variant="Variant.Outlined">Take me to Activities!</MudButton>
 </div>
 
-<ActivityDashboard Activities="_activities"/>
-
-@code {
-    private List<ActivityViewModel>? _activities;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var activities = await ActivitiesService.GetActivities();
-        if (activities is null || !activities.Any())
-            return;
-
-        _activities = new List<ActivityViewModel>();
-
-        foreach (var activity in activities)
-            _activities.Add((ActivityViewModel)activity);
+<style>
+    .homePage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-image: linear-gradient(
+            135deg,
+            rgb(24, 42, 115) 0%,
+            rgb(33, 138, 174) 69%,
+            rgb(32, 167, 172) 89%
+        ) !important;
+        height: 100vh;
+        width: 100vw;
     }
-}
+</style>
