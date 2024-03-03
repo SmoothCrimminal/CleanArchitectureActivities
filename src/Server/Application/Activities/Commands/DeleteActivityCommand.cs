@@ -1,11 +1,12 @@
-﻿using MediatR;
+﻿using Application.Core;
+using MediatR;
 using Persistence;
 
 namespace Application.Activities.Commands
 {
-    public record DeleteActivityCommand(Guid Id) : IRequest { }
+    public record DeleteActivityCommand(Guid Id) : IRequest<Result?> { }
 
-    public class DeleteActivityCommandHandler : IRequestHandler<DeleteActivityCommand>
+    public class DeleteActivityCommandHandler : IRequestHandler<DeleteActivityCommand, Result?>
     {
         private readonly DataContext _dataContext;
 
@@ -14,13 +15,19 @@ namespace Application.Activities.Commands
             _dataContext = dataContext;
         }
 
-        public async Task Handle(DeleteActivityCommand request, CancellationToken cancellationToken)
+        public async Task<Result?> Handle(DeleteActivityCommand request, CancellationToken cancellationToken)
         {
             var activity = await _dataContext.Activities.FindAsync(request.Id);
+            if (activity is null)
+                return null;
 
             _dataContext.Remove(activity);
 
-            await _dataContext.SaveChangesAsync();
+            var savingResult = await _dataContext.SaveChangesAsync() > 0;
+            if (savingResult)
+                return Result.Success();
+
+            return Result.Fail("Could not remove activity");
         }
     }
 }

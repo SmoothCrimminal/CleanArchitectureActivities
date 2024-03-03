@@ -1,0 +1,12 @@
+﻿@page "/Errors"
+
+<MudText Typo="Typo.caption">Test Error Component</MudText>
+
+<MudTabs Elevation="2" Color="Color.Info">
+    <MudTabPanel OnClick="HandleNotFound" Text="Not Found"/>
+    <MudTabPanel OnClick="HandleBadRequest" Text="Bad Request"/>
+    <MudTabPanel OnClick="HandleValidationError" Text="Validation Error"/>
+    <MudTabPanel OnClick="HandleServerError" Text="Server Error"/>
+    <MudTabPanel OnClick="HandleUnauthorized" Text="Unauthorized"/>
+    <MudTabPanel OnClick="HandleBadGuid" Text="Bad Guid"/>
+</MudTabs>

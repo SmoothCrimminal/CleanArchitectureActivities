@@ -1,4 +1,7 @@
-﻿using Application.Activities.Queries;
+﻿using Application.Activities.Commands;
+using Application.Activities.Queries;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -22,6 +25,8 @@ namespace WebApi.Extensions
             });
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetActivitiesQueryHandler).Assembly));
+            services.AddFluentValidationAutoValidation();
+            services.AddValidatorsFromAssemblyContaining<CreateActivityCommand>();
 
             services.AddControllers();
             services.AddEndpointsApiExplorer();

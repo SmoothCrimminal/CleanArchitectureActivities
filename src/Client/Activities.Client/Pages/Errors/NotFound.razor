@@ -1,0 +1,11 @@
+﻿@page "/NotFound"
+
+@inject NavigationManager NavigationManager
+
+<MudContainer Style="display: flex; justify-content: center; margin-top: 15px">
+    <MudPaper Style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 800px; height: 250px">
+        <MudIcon Icon="@Icons.Material.Filled.Search" Size="Size.Large" />
+        <MudText Typo="Typo.subtitle1">Oops - we've looked everywhere but could not find what you are looking for!</MudText>
+        <MudButton Color="Color.Surface" OnClick="@(() => NavigationManager.NavigateTo("/activities"))" Variant="Variant.Filled">Return to activities page</MudButton>
+    </MudPaper>
+</MudContainer>

@@ -1,0 +1,14 @@
+﻿@page "/ServerError"
+
+@if (_apiCriticalErrorViewModel is null)
+{
+    
+}
+else
+{
+    <div style="margin: 15px; padding: 15px;">
+        <MudText Typo="Typo.h6">Server Error</MudText>
+        <MudText Typo="Typo.body1" Color="Color.Error">@_apiCriticalErrorViewModel.ExceptionMessage</MudText>
+        <MudTextField T="string" AutoGrow="true" Disabled="true" @bind-Text="_apiCriticalErrorViewModel.Details"></MudTextField>
+    </div>
+}
