@@ -1,6 +1,7 @@
 ﻿@page "/Activities"
 
 @inject ActivitiesService ActivitiesService
+@inject ISnackbar Snackbar
 
 <ActivityDashboard Activities="_activities" />
 
@@ -9,13 +10,20 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var activities = await ActivitiesService.GetActivities();
-        if (activities is null || !activities.Any())
+        var activitiesResult = await ActivitiesService.GetActivities();
+        if (activitiesResult.Failed)
+        {
+            if (activitiesResult.Exception is not null)
+                Snackbar.Add(activitiesResult.Exception.Message, Severity.Error);
+            else
+                Snackbar.Add(activitiesResult.ErrorMessage, Severity.Error);
+
             return;
+        }
 
         _activities = new List<ActivityViewModel>();
 
-        foreach (var activity in activities)
+        foreach (var activity in activitiesResult.Payload)
             _activities.Add((ActivityViewModel)activity);
     }
 }

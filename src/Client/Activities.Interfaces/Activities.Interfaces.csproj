@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Activities.Interfaces\Activities.Interfaces.csproj" />
     <ProjectReference Include="..\Activities.Models\Activities.Models.csproj" />
   </ItemGroup>
 

@@ -1,8 +1,43 @@
-﻿@inject NavigationManager NavigationManager
+﻿@using Activities.Services.Account;
+@using Blazored.LocalStorage;
 
-<MudTabs Elevation="2" Color="Color.Info">
-        <MudTabPanel Icon="@Icons.Material.Filled.People" Text="Activities" OnClick="@(() => NavigationManager.NavigateTo("/"))"/>
-        <MudTabPanel Text="Activities" OnClick="@(() => NavigationManager.NavigateTo("/Activities"))"/>
-        <MudTabPanel Text="Create Activity" OnClick="@(() => NavigationManager.NavigateTo("/CreateActivity"))"/>
-        <MudTabPanel Text="Errors" OnClick="@(() => NavigationManager.NavigateTo("/Errors"))"/>
-</MudTabs>
+<AuthorizeView>
+    <MudTabs Elevation="2" Color="Color.Info">
+        <MudTabPanel Icon="@Icons.Material.Filled.People" Text="Activities" OnClick="@(() => NavigationManager.NavigateTo("/"))" />
+        <MudTabPanel Text="Activities" OnClick="@(() => NavigationManager.NavigateTo("/Activities"))" />
+        <MudTabPanel Text="Create Activity" OnClick="@(() => NavigationManager.NavigateTo("/CreateActivity"))" />
+        <MudTabPanel Text="Errors" OnClick="@(() => NavigationManager.NavigateTo("/Errors"))" />
+        <MudTabPanel Text="My profile" OnClick="@(async () => await NavigateToUserProfile())" Style="float: right" />
+        <MudTabPanel Text="Log out" Style="float: right" OnClick="@(async () => await LogOut())" />
+    </MudTabs>
+</AuthorizeView>
+
+@code {
+    [Inject]
+    AccountService AccountService { get; set; }
+
+    [Inject]
+    AuthenticationStateProvider AuthStateProvider { get; set; }
+
+    [Inject]
+    ILocalStorageService LocalStorageService { get; set; }
+
+    private async Task NavigateToUserProfile()
+    {
+        var currentUserResult = await AccountService.GetCurrentUserAsync();
+
+        NavigationManager.NavigateTo($"/profile/{currentUserResult.Payload?.Username}");
+    }
+
+    private async Task LogOut()
+    {
+        await LocalStorageService.RemoveItemAsync("jwt");
+        await AuthStateProvider.GetAuthenticationStateAsync();
+
+        NavigationManager.NavigateTo("/");
+
+        SnackBar.Add("You have been successfully logged out", Severity.Success);
+
+        StateHasChanged();
+    }
+}

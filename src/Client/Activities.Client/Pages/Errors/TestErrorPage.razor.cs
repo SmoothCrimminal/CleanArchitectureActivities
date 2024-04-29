@@ -12,10 +12,6 @@ namespace Activities.Client.Pages.Errors
     {
         [Inject] HttpClient Client { get; set; }
 
-        [Inject] ISnackbar Snackbar { get; set; }
-
-        [Inject] NavigationManager NavigationManager { get; set; }
-
         [Inject] IJSRuntime JsRuntime { get; set; }
 
         public void HandleNotFound()
@@ -62,7 +58,7 @@ namespace Activities.Client.Pages.Errors
             if (httpResponse is null)
                 return;
 
-            Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+            SnackBar.Configuration.SnackbarVariant = Variant.Filled;
 
             ApiErrorViewModel? responseModel = null;
 
@@ -76,7 +72,7 @@ namespace Activities.Client.Pages.Errors
                 if (string.IsNullOrWhiteSpace(responseAsString))
                     return;
 
-                Snackbar.Add(responseAsString, Severity.Error);
+                SnackBar.Add(responseAsString, Severity.Error);
                 return;
             }
 
@@ -84,12 +80,12 @@ namespace Activities.Client.Pages.Errors
             {
                 foreach (var error in responseModel.Errors.Id)
                 {
-                    Snackbar.Add(error, Severity.Error);
+                    SnackBar.Add(error, Severity.Error);
                 }
             }
             else
             {
-                Snackbar.Add(responseModel?.Title, Severity.Error);
+                SnackBar.Add(responseModel?.Title, Severity.Error);
             }
         }
     }

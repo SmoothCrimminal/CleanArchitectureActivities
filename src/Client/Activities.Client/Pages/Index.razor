@@ -6,7 +6,17 @@
         <MudText Typo="Typo.h3" Style="color: white">Clean Activities</MudText>
     </div>
     <MudText Typo="Typo.h4" Style="margin-bottom: 10px">Welcome to Clean Activities</MudText>
-    <MudButton Size="Size.Large" Href="/Activities" Variant="Variant.Outlined">Take me to Activities!</MudButton>
+    <AuthorizeView>
+        <NotAuthorized>
+            <div style="display: flex; justify-content: center; gap: 10px">
+                <MudButton Size="Size.Large" Href="/Login" Variant="Variant.Outlined">Login</MudButton>
+                <MudButton Size="Size.Large" Href="/Register" Variant="Variant.Outlined">Register</MudButton>
+            </div>
+        </NotAuthorized>
+        <Authorized>
+            <MudButton Size="Size.Large" Href="/Activities" Variant="Variant.Outlined">Take me to activities!</MudButton>
+        </Authorized>
+    </AuthorizeView>
 </div>
 
 <style>

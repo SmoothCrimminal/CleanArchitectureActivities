@@ -1,30 +1,32 @@
-﻿using Activities.Models.Dtos;
+﻿using Activities.Interfaces.Remote;
+using Activities.Models.Dtos;
+using Activities.Models.Shared;
 using System.Net.Http.Json;
 
 namespace Activities.Services.Activities
 {
     public class ActivitiesService
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpResponseHandler _httpResponseHandler;
 
-        public ActivitiesService(HttpClient httpClient)
+        public ActivitiesService(IHttpResponseHandler httpResponseHandler)
         {
-            _httpClient = httpClient;
+            _httpResponseHandler = httpResponseHandler;
         }
 
-        public async Task<IEnumerable<ActivityDto>?> GetActivities()
-            => await _httpClient.GetFromJsonAsync<IEnumerable<ActivityDto>>("/api/activities");
+        public async Task<Result<IEnumerable<ActivityDto>>> GetActivities()
+            => await _httpResponseHandler.GetAsync<IEnumerable<ActivityDto>>("/api/activities");
 
-        public async Task UpdateActivity(ActivityDto dto)
-            => await _httpClient.PutAsJsonAsync($"/api/activities/{dto.Id}", dto);
+        public async Task<Result> UpdateActivity(ActivityDto dto)
+            => await _httpResponseHandler.PutAsync($"/api/activities/{dto.Id}", dto);
 
-        public async Task CreateActivity(ActivityDto dto)
-            => await _httpClient.PostAsJsonAsync("/api/activities", dto);
+        public async Task<Result> CreateActivity(ActivityDto dto)
+            => await _httpResponseHandler.PutAsync("/api/activities", dto);
 
-        public async Task DeleteActivity(Guid id)
-            => await _httpClient.DeleteAsync($"/api/activities/{id}");
+        public async Task<Result> DeleteActivity(Guid id)
+            => await _httpResponseHandler.DeleteAsync($"/api/activities/{id}");
 
-        public async Task<ActivityDto?> GetActivityById(Guid id)
-            => await _httpClient.GetFromJsonAsync<ActivityDto?>($"/api/activities/{id}");
+        public async Task<Result<ActivityDto>> GetActivityById(Guid id)
+            => await _httpResponseHandler.GetAsync<ActivityDto>($"/api/activities/{id}");
     }
 }

@@ -1,0 +1,23 @@
+﻿
+<EditForm Model="@LoginViewModel" style="width: 400px; height: 200px" OnValidSubmit="Login">
+    <DataAnnotationsValidator />
+
+    <MudCard>
+        <MudCardContent>
+            <MudTextField Placeholder="Login" @bind-Value="@LoginViewModel.Login" For="@(() => LoginViewModel.Login)" />
+            <MudTextField Placeholder="Password" @bind-Value="@LoginViewModel.Password" For="@(() => LoginViewModel.Password)" InputType="InputType.Password"/>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Size="Size.Small" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success" >
+                @if (_isBusy)
+                {
+                    <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                }
+                else
+                {
+                    <MudText>Login</MudText>
+                }
+            </MudButton>
+        </MudCardActions>
+    </MudCard>
+</EditForm>

@@ -14,9 +14,16 @@
 @using Activities.Client.Components.Dashboard.Details
 @using Activities.Client.Components.Dashboard.Form
 @using Activities.Client.Components.List
+@using Activities.Client.Components.Users
+@using Activities.Client.Pages.UserManagement
+@using Microsoft.AspNetCore.Components.Authorization;
+@using Microsoft.AspNetCore.Authorization;
 
 @*mudblazor*@
 @using MudBlazor
 
 @*services*@
 @using Activities.Services.Activities
+
+@inject NavigationManager NavigationManager
+@inject ISnackbar SnackBar
