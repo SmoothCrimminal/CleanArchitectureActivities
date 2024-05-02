@@ -32,6 +32,7 @@ namespace WebApi.Controllers
             return HandleResult(result);
         }
 
+        [Authorize(Policy = "IsActivityHost")]
         [HttpPut("{id}")]
         public async Task<IActionResult> EditActivity(Guid id, Activity activity)
         {
@@ -42,6 +43,7 @@ namespace WebApi.Controllers
             return HandleResult(result);
         }
 
+        [Authorize(Policy = "IsActivityHost")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteActivity(Guid id)
         {
@@ -49,5 +51,9 @@ namespace WebApi.Controllers
 
             return HandleResult(result);
         }
+
+        [HttpPost("{id}/attend")]
+        public async Task<IActionResult> Attend(Guid id)
+            => HandleResult(await Mediator.Send(new UpdateAttendanceCommand(id)));
     }
 }

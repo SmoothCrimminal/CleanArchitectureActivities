@@ -1,13 +1,14 @@
-﻿using Application.Core;
+﻿using Application.Activities.Dtos;
+using Application.Core;
 using Domain;
 using MediatR;
 using Persistence;
 
 namespace Application.Activities.Queries
 {
-    public record GetActivityDetailsQuery(Guid Id) : IRequest<Result<Activity>> { }
+    public record GetActivityDetailsQuery(Guid Id) : IRequest<Result<ActivityDto>> { }
 
-    public class GetActivityDetailsQueryHandler : IRequestHandler<GetActivityDetailsQuery, Result<Activity>>
+    public class GetActivityDetailsQueryHandler : IRequestHandler<GetActivityDetailsQuery, Result<ActivityDto>>
     {
         private readonly DataContext _dataContext;
 
@@ -16,11 +17,12 @@ namespace Application.Activities.Queries
             _dataContext = dataContext;
         }
 
-        public async Task<Result<Activity>> Handle(GetActivityDetailsQuery request, CancellationToken cancellationToken)
+        public async Task<Result<ActivityDto>> Handle(GetActivityDetailsQuery request, CancellationToken cancellationToken)
         {
             var activity = await _dataContext.Activities.FindAsync(request.Id);
+            var activityDto = (ActivityDto)activity;
 
-            return Result<Activity>.Success(activity);
+            return Result<ActivityDto>.Success(activityDto);
         }
     }
 }
