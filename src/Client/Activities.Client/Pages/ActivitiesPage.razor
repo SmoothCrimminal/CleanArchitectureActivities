@@ -1,6 +1,9 @@
 ﻿@page "/Activities"
+@using System.Security.Claims
+@using Activities.Client.Extensions
 
 @inject ActivitiesService ActivitiesService
+@inject AuthenticationStateProvider AuthStateProvider
 @inject ISnackbar Snackbar
 
 <ActivityDashboard Activities="_activities" />
@@ -23,7 +26,20 @@
 
         _activities = new List<ActivityViewModel>();
 
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        var userName = authState.GetUserName();
+        if (string.IsNullOrWhiteSpace(userName))
+            return;
+
         foreach (var activity in activitiesResult.Payload)
-            _activities.Add((ActivityViewModel)activity);
+        {
+            var activityDto = (ActivityViewModel)activity;
+
+            activityDto.IsGoing = activityDto.Attendees.Any(x => x.UserName == userName && activityDto.HostUserName != userName);
+            activityDto.IsHost = activityDto.HostUserName == userName;
+            activityDto.Host = activityDto.Attendees.First(x => x.UserName == activityDto.HostUserName);
+
+            _activities.Add(activityDto);
+        }
     }
 }

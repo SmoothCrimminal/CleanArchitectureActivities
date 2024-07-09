@@ -2,12 +2,12 @@
 {
     <MudGrid>
         <MudItem xs="8" Style="display: flex; flex-direction: column; gap: 40px">
-            <ActivityDetailsHeader Activity="@Activity" />
+            <ActivityDetailsHeader @bind-Activity="@Activity" />
             <ActivityDetailsInfo Activity="@Activity" />
             <ActivityDetailsChat />
         </MudItem>
         <MudItem xs="4">
-            <ActivityDetailsSidebar />
+            <ActivityDetailsSidebar Activity="@Activity"/>
         </MudItem>
     </MudGrid>
 }

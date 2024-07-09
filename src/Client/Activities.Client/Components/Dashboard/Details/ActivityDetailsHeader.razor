@@ -1,16 +1,59 @@
 ﻿<MudCard>
     <div style="position: relative;">
+        @if (Activity.IsCancelled.HasValue && Activity.IsCancelled.Value)
+        {
+            <MudIcon Icon="@Icons.Material.Filled.CancelPresentation" Size="Size.Large" Style="position: absolute; z-index: 1; margin: 10px; color: red" />
+        }
+
         <MudCardMedia Image="@($"/images/categoryImages/{Activity.Category}.jpg")" Style="filter: brightness(30%)"/>
 
         <div style="position: absolute; bottom: 5%; left: 5%; height: auto; color: white; width: 100%">
             <MudText Typo="Typo.h5">@Activity.Title</MudText>
             <MudText Typo="Typo.caption">@Activity.Date</MudText>
-            <MudText Typo="Typo.body2">Hosted by <b>Bob</b></MudText>
+            <MudLink Href="@($"/profile/{Activity.HostUserName}")" Typo="Typo.body2">Hosted by <b>@Activity.Host?.DisplayName</b></MudLink>
         </div>
     </div>
     <MudCardActions Style="display: flex; gap: 10px; height: 80px; align-items: flex-end">
-        <MudButton Color="Color.Info" Variant="Variant.Filled">Join Activity</MudButton>
-        <MudButton Color="Color.Surface" Variant="Variant.Filled">Cancel attendance</MudButton>
-        <MudButton Color="Color.Warning" Variant="Variant.Filled" Style="margin-left: auto">Manage Event</MudButton>
+        @if (Activity.IsGoing.HasValue && Activity.IsGoing.Value)
+        {
+            @if (_isLoading)
+            {
+                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                <MudText Class="ms-2">Cancelling</MudText>
+            }
+            else
+            {
+                <MudButton Color="Color.Surface" Variant="Variant.Filled" OnClick="UpdateAttendance">Cancel attendance</MudButton>
+            }
+        }
+        else if (Activity.IsHost.HasValue && !Activity.IsHost.Value)
+        {
+            @if (_isLoading)
+            {
+                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                <MudText Class="ms-2">Joning</MudText>
+            }
+            else
+            {
+                <MudButton Color="Color.Info" Variant="Variant.Filled" OnClick="UpdateAttendance">Join Activity</MudButton>
+            }
+        }
+
+        @if (Activity.IsHost.HasValue && Activity.IsHost.Value)
+        {
+            @if (Activity.IsCancelled.HasValue)
+            {
+                @if (Activity.IsCancelled.Value)
+                {
+                    <MudButton Color="Color.Success" OnClick="CancelActivityToogle" Variant="Variant.Filled">Re-activate Activity</MudButton>
+                }
+                else
+                {
+                    <MudButton Color="Color.Error" OnClick="CancelActivityToogle" Variant="Variant.Filled">Cancel Activity</MudButton>
+                }
+            }
+
+            <MudButton Color="Color.Warning" Variant="Variant.Filled" Style="margin-left: auto" Disabled="@(Activity.IsCancelled.HasValue ? Activity.IsCancelled.Value : true)">Manage Event</MudButton>
+        }
     </MudCardActions>
 </MudCard>

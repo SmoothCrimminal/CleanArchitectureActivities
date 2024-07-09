@@ -40,6 +40,8 @@ namespace Activities.Client.Components.Users
             }
 
             await LocalStorageService.SetItemAsync("jwt", result.Payload.Token);
+            await LocalStorageService.SetItemAsync("user", result.Payload);
+
             await AuthStateProvider.GetAuthenticationStateAsync();
 
             _isBusy = false;

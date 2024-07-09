@@ -9,5 +9,8 @@
         public string? Category { get; set; }
         public string? City { get; set; }
         public string? Venue { get; set; }
+        public string? HostUserName { get; set; }
+        public bool IsCancelled { get; set; }
+        public IEnumerable<ProfileDto>? Profiles { get; set; } 
     }
 }

@@ -1,6 +1,9 @@
-﻿using Activities.Client.ViewModels;
+﻿using Activities.Client.Extensions;
+using Activities.Client.ViewModels;
 using Activities.Models.Dtos;
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace Activities.Client.Components.Dashboard.Form
 {
@@ -69,13 +72,28 @@ namespace Activities.Client.Components.Dashboard.Form
             EditMode = false;
         }
 
+        [Inject]
+        public ILocalStorageService LocalStorageService { get; set; }
+
         private async Task HandleActivityEditOrCreation()
         {
+            if (LocalStorageService is null)
+                return;
+
+            var currentUser = await LocalStorageService.GetItemAsync<UserDto>("user");
+            if (currentUser is null)
+                return;
+
             var dto = (ActivityDto)Activity;
 
             if (CreateMode)
             {
                 dto.Id = Guid.NewGuid();
+                dto.HostUserName = currentUser.Username;
+                dto.Profiles = new List<ProfileDto>()
+                {
+                    new ProfileDto(currentUser)
+                };
 
                 await ActivitiesService.CreateActivity(dto);
             }

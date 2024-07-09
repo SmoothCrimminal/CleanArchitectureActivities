@@ -1,24 +1,46 @@
 ﻿@inject ActivitiesService ActivitiesService
 
 <MudCard Elevation="2" Outlined="true" Style="margin-bottom: 20px">
+
+    @if (Activity.IsCancelled.HasValue && Activity.IsCancelled.Value)
+    {
+        <MudIcon Icon="@Icons.Material.Filled.CancelPresentation" Size="Size.Large" Style="position: relative; z-index: 1; margin: 10px; float: right; color: red" />
+    }
+
     <MudCardHeader>
         <CardHeaderAvatar>
             <MudImage Src="/images/user.png" Height="50" Style="border-radius: 50%"/>
         </CardHeaderAvatar>
         <CardHeaderContent>
             <MudText Typo="Typo.body1"><b>@Activity.Title</b></MudText>
-            <MudText Typo="Typo.caption">Hosted by Bob</MudText>
+            <MudText Typo="Typo.caption">Hosted by @Activity.Host?.DisplayName</MudText>
         </CardHeaderContent>
     </MudCardHeader>
+
+    <MudCardContent>
+        @if (Activity.IsHost.HasValue && Activity.IsHost.Value)
+        {
+            <MudButton Color="Color.Warning" Variant="Variant.Outlined" Size="Size.Small">You are hosting this activity</MudButton>
+        }
+        else if (Activity.IsGoing.HasValue && Activity.IsGoing.Value && (!Activity.IsHost.HasValue || !Activity.IsHost.Value))
+        {
+            <MudButton Color="Color.Success" Variant="Variant.Outlined" Size="Size.Small">You are going to this activity</MudButton>
+        }
+    </MudCardContent>
+
+    <MudDivider/>
+
     <MudCardContent Style="display: flex; gap: 10px; align-items: center">
         <MudIcon Icon="@Icons.Material.Filled.LockClock" />
         <MudText Typo="Typo.body2">@Activity.Date.Value</MudText>     
         <MudIcon Icon="@Icons.Material.Filled.LocationCity"/>
         <MudText Typo="Typo.body2">@Activity.City</MudText>
     </MudCardContent>
+
     <MudDivider />
-    <MudCardContent Style="background-color: whitesmoke">
-        Attendees
+
+    <MudCardContent Style="background-color: whitesmoke; height: 60px; align-items: center; display: flex;">
+        <ActivityListItemAttendee Attendees="@Activity.Attendees"/>
     </MudCardContent>
     <MudDivider />
     <MudCardActions Style="justify-content: space-between">

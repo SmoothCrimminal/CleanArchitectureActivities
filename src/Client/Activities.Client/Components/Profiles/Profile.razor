@@ -1,0 +1,13 @@
+﻿<MudCard>
+    <MudCardHeader Style="display: flex;">
+        <CardHeaderAvatar>
+            <MudImage Src="@(string.IsNullOrWhiteSpace(ProfileViewModel.Image) ? "/images/user.png" : ProfileViewModel.Image)" Height="100" onclick="@MoveToProfile" Style="cursor: pointer"/>
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.body1" Style="font: bold">@ProfileViewModel.DisplayName</MudText>
+            <MudTextField T="string" ReadOnly="true" Text="Bio goes here" DisableUnderLine="true"/>
+            <MudDivider />
+            <MudText Style="color: gray" Typo="Typo.subtitle1">20 followers</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+</MudCard>

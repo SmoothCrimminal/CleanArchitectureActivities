@@ -1,31 +1,25 @@
-﻿<MudCard>
+﻿<MudCard Style="width: 400px">
     <MudCardHeader Style="background-color: mediumaquamarine">
         <CardHeaderContent>
-            <MudText Typo="Typo.body1" Style="text-align: center;">3 People Going</MudText>
+            <MudText Typo="Typo.body1" Style="text-align: center;">@(Activity.Attendees.Count() > 1 ? $"{Activity.Attendees.Count()} People" : "1 Person")</MudText>
         </CardHeaderContent>
     </MudCardHeader>
 
-    <MudCardContent Style="display: flex; gap: 5px">
-        <MudImage Src="/images/user.png" Height="50"/>
-        <div>
-            <MudText Typo="Typo.body1" Color="Color.Info">Bob</MudText>
-            <MudText Typo="Typo.body2" Color="Color.Warning">Following</MudText>
-        </div>
-    </MudCardContent>
-    <MudDivider />
-    <MudCardContent Style="display: flex; gap: 5px">
-        <MudImage Src="/images/user.png" Height="50" />
-        <div>
-            <MudText Typo="Typo.body1" Color="Color.Info">Someone</MudText>
-            <MudText Typo="Typo.body2" Color="Color.Warning">Following</MudText>
-        </div>
-    </MudCardContent>
-    <MudDivider />
-    <MudCardContent Style="display: flex; gap: 5px">
-        <MudImage Src="/images/user.png" Height="50" />
-        <div>
-            <MudText Typo="Typo.body1" Color="Color.Info">Wojszcz</MudText>
-            <MudText Typo="Typo.body2" Color="Color.Warning">Following</MudText>
-        </div>
-    </MudCardContent>
+    @foreach (var attendee in Activity.Attendees)
+    {
+        <MudCardContent Style="display: flex; gap: 20px">
+            <MudImage Src="@(string.IsNullOrWhiteSpace(attendee.Image) ? "/images/user.png" : attendee.Image)" Height="50" />
+            <div>
+                <MudLink Href="@($"/profiles/{attendee.UserName}")">@attendee.DisplayName</MudLink>
+                <MudText Typo="Typo.body2" Color="Color.Warning">Following</MudText>
+            </div>
+
+            @if (attendee.UserName == Activity.HostUserName)
+            {
+                <MudButton Color="Color.Warning" Variant="Variant.Outlined" Size="Size.Small" Style="width: 200px; height: 40px;">Host</MudButton>
+            }
+        </MudCardContent>
+
+        <MudDivider />
+    }
 </MudCard>

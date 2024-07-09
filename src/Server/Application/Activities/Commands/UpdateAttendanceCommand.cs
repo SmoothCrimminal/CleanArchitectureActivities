@@ -55,9 +55,9 @@ namespace Application.Activities.Commands
                     Activity = activity,
                     IsHost = false
                 };
-            }
 
-            activity.Attendees.Add(attendance);
+                activity.Attendees.Add(attendance);
+            }
 
             var result = await _dataContext.SaveChangesAsync() > 0;
 
