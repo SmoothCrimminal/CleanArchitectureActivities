@@ -23,6 +23,7 @@ namespace Application.Activities.Queries
             var activities = await _dataContext.Activities
                 .Include(a => a.Attendees)
                 .ThenInclude(u => u.AppUser)
+                .ThenInclude(p => p.Photos)
                 .ToListAsync(cancellationToken);
 
             var dtos = activities.ToEnumerableDto().ToList();

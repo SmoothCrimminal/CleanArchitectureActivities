@@ -14,7 +14,7 @@ namespace Application.Activities.Dtos
         public string? Venue { get; set; }
         public string HostUserName { get; set; }
         public bool IsCancelled { get; set; }
-        public ICollection<Profile> Profiles { get; set; }
+        public ICollection<AttendeeDto> Profiles { get; set; }
 
         public static explicit operator ActivityDto(Activity activity) => new ActivityDto
         {
@@ -26,13 +26,7 @@ namespace Application.Activities.Dtos
             Title = activity.Title,
             Venue = activity.Venue,
             IsCancelled = activity.IsCancelled,
-            Profiles = activity.Attendees.Select(a => new Profile
-            {
-                Bio = a.AppUser.Bio,
-                DisplayName = a.AppUser.DisplayName ?? string.Empty,
-                Image = string.Empty,
-                UserName = a.AppUser.UserName ?? string.Empty
-            }).ToList(),
+            Profiles = activity.Attendees.Select(a => (AttendeeDto)a).ToList(),
             HostUserName = activity.Attendees.FirstOrDefault(a => a.IsHost)?.AppUser?.UserName ?? string.Empty,
         };
     }
