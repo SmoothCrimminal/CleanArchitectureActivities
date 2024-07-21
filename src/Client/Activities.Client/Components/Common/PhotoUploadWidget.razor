@@ -1,0 +1,36 @@
+﻿<MudGrid>
+    <MudItem xs="3">
+        <MudText Color="Color.Info">Step 1 - Add Photo</MudText>
+        <PhotoWidgetDropzone @bind-FileUrl="@_fileUrl"/>
+    </MudItem>
+    <MudItem xs="1"/>
+    <MudItem xs="3">
+        <MudText Color="Color.Info">Step 2 - Resize Image</MudText>
+        @if (_fileUrl is not null)
+        {
+            <CropperComponent Src="@_fileUrl"
+                              Class="cropper-container"
+                              Options="_options"
+                              @ref="_cropperComponent"
+                              style="margin-top: 10px; width: 90%; height: 90%" />
+        }
+    </MudItem>
+    <MudItem xs="1" />
+    <MudItem xs="3">
+        <MudText Color="Color.Info">Step 3 - Preview & Upload</MudText>
+        @if (_fileUrl is not null)
+        {
+            <div class="img-preview" style="width: 100%; height: 300px; overflow: hidden; margin-top: 10px; background-color: lightgray; max-width: 500px" />
+
+            <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px">
+                <MudIconButton Icon="@(_isLoading ? string.Empty : Icons.Material.Filled.Check)" Color="Color.Success" ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="UploadImage" Style="width: 120px">
+                    @if(_isLoading)
+                    {
+                        <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                    }
+                </MudIconButton>
+                <MudIconButton Icon="@Icons.Material.Filled.Cancel" Color="Color.Error" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Style="width: 120px" OnClick="CancelFile" />
+            </div>
+        }
+    </MudItem>
+</MudGrid>

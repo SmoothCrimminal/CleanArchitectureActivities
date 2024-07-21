@@ -9,11 +9,11 @@
 
     <MudCardHeader>
         <CardHeaderAvatar>
-            <MudImage Src="/images/user.png" Height="50" Style="border-radius: 50%"/>
+            <MudImage Src="@(string.IsNullOrWhiteSpace(Activity.Host?.Image) ? "/images/user.png" : Activity.Host.Image)" Height="50" Style="border-radius: 50%"/>
         </CardHeaderAvatar>
         <CardHeaderContent>
             <MudText Typo="Typo.body1"><b>@Activity.Title</b></MudText>
-            <MudText Typo="Typo.caption">Hosted by @Activity.Host?.DisplayName</MudText>
+            <MudText Typo="Typo.caption">Hosted by <MudLink Typo="Typo.caption" Href="@($"/profile/{Activity.Host?.UserName}")">@Activity.Host?.DisplayName</MudLink></MudText>
         </CardHeaderContent>
     </MudCardHeader>
 

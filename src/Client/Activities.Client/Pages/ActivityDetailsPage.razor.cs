@@ -16,9 +16,6 @@ namespace Activities.Client.Pages
         [Inject]
         public ISnackbar Snackbar { get; set; }
 
-        [Inject]
-        public AuthenticationStateProvider AuthStateProvider { get; set; }
-
         public bool EditRequested { get; set; }
 
         private ActivityViewModel? _activityDto;

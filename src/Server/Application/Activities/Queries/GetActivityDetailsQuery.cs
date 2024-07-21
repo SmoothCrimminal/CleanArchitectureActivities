@@ -23,6 +23,7 @@ namespace Application.Activities.Queries
             var activity = await _dataContext.Activities
                 .Include(a => a.Attendees)
                 .ThenInclude(u => u.AppUser)
+                .ThenInclude(p => p.Photos)
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
 
             if (activity is null)

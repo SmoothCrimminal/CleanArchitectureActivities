@@ -10,7 +10,7 @@
         <MudCardContent Style="display: flex; gap: 20px">
             <MudImage Src="@(string.IsNullOrWhiteSpace(attendee.Image) ? "/images/user.png" : attendee.Image)" Height="50" />
             <div>
-                <MudLink Href="@($"/profiles/{attendee.UserName}")">@attendee.DisplayName</MudLink>
+                <MudLink Href="@($"/profile/{attendee.UserName}")">@attendee.DisplayName</MudLink>
                 <MudText Typo="Typo.body2" Color="Color.Warning">Following</MudText>
             </div>
 

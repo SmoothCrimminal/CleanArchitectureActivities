@@ -1,0 +1,33 @@
+﻿<MudGrid>
+    <MudItem xs="12">
+        <MudPaper>
+            <MudGrid>
+                <MudItem xs="9" Style="margin: 10px; display: flex; align-items: center;">
+                    <MudImage Src="@(string.IsNullOrWhiteSpace(Profile.Image) ? "images/user.png" : Profile.Image)" Style="border-radius: 50%; cursor: pointer; margin-right: 20px" Height="70" />
+                    <MudText>@Profile.DisplayName</MudText>
+                </MudItem>
+                <MudItem xs="2" Style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px">
+                    <div style="display: flex; gap: 30px;">
+                        <div>
+                            <MudText Typo="Typo.h4" Align="Align.Center">5</MudText>
+                            <MudText Align="Align.Center" Typo="Typo.subtitle2">Followers</MudText>
+                        </div>
+
+                        <div>
+                            <MudText Typo="Typo.h4" Align="Align.Center">40</MudText>
+                            <MudText Align="Align.Center" Typo="Typo.subtitle2">Following</MudText>
+                        </div>
+                    </div>
+
+                    <MudDivider DividerType="DividerType.FullWidth"/>
+
+                    <MudButton FullWidth="true" Color="Color.Info">Following</MudButton>
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+    </MudItem>
+
+    <MudItem xs="12">
+        <ProfileContent @bind-Profile="Profile" IsCurrentUser="_isCurrentUser"/>
+    </MudItem>
+</MudGrid>

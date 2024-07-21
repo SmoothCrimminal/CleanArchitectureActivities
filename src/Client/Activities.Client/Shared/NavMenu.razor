@@ -17,9 +17,6 @@
     AccountService AccountService { get; set; }
 
     [Inject]
-    AuthenticationStateProvider AuthStateProvider { get; set; }
-
-    [Inject]
     ILocalStorageService LocalStorageService { get; set; }
 
     private async Task NavigateToUserProfile()

@@ -1,10 +1,10 @@
 ﻿<MudToolBar>
     @foreach(var attendee in Attendees)
     {
-        <MudIconButton Size="Size.Large" Icon="@Icons.Material.Rounded.Person" OnClick="() => _popupOpen = !_popupOpen"/>
+        <MudImage Src="@(string.IsNullOrWhiteSpace(attendee.Image) ? "/images/user.png" : attendee.Image)" Height="50" Style="border-radius: 50%; cursor: pointer; margin-right: 20px" @onclick="() => HandleClick(attendee)"/>
 
         <MudPopover Open="_popupOpen" AnchorOrigin="Origin.TopRight">
-            <Profile ProfileViewModel="@attendee"/>
+            <Profile ProfileViewModel="_currentlyViewedAttendee"/>
         </MudPopover>
     }
 </MudToolBar>

@@ -1,4 +1,5 @@
-﻿using Activities.Client.ViewModels;
+﻿using Activities.Client.Extensions;
+using Activities.Client.ViewModels;
 using Microsoft.AspNetCore.Components;
 
 namespace Activities.Client.Components.Profiles

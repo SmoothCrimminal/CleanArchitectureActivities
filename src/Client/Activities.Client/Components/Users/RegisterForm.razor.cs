@@ -17,9 +17,6 @@ namespace Activities.Client.Components.Users
         [Inject]
         ILocalStorageService LocalStorageService { get; set; }
 
-        [Inject]
-        AuthenticationStateProvider AuthStateProvider { get; set; }
-
         public RegisterViewModel RegisterViewModel { get; set; } = new();
 
         private bool _isBusy = false;

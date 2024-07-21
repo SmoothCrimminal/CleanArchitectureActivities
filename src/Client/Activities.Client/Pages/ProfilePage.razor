@@ -1,0 +1,12 @@
+﻿@page "/Profile/{Username}"
+
+<div style="padding: 20px; margin: 10px">
+    @if (_isLoading)
+    {
+        <MudProgressCircular Size="Size.Large" />
+    }
+    else
+    {
+        <ProfileHeader Profile="_profileViewModel" />
+    }
+</div>

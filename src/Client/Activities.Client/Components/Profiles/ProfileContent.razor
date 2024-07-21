@@ -1,0 +1,25 @@
+﻿<MudTabs Border="true" Position="Position.Right" SliderColor="Color.Info">
+    <MudTabPanel Text="About">
+        <MudPaper Width="95%" Style="padding: 10px">
+            <MudText>About Content</MudText>
+        </MudPaper>
+    </MudTabPanel>
+    <MudTabPanel Text="Photos">
+        <ProfilePhotos @bind-Profile="Profile" IsCurrentUser="IsCurrentUser"/>
+    </MudTabPanel>
+    <MudTabPanel Text="Events">
+        <MudPaper Width="95%" Style="padding: 10px">
+            <MudText>Events Content</MudText>
+        </MudPaper>
+    </MudTabPanel>
+    <MudTabPanel Text="Followers">
+        <MudPaper Width="95%" Style="padding: 10px">
+            <MudText>Followers Content</MudText>
+        </MudPaper>
+    </MudTabPanel>
+    <MudTabPanel Text="Following">
+        <MudPaper Width="95%" Style="padding: 10px">
+            <MudText>Following Content</MudText>
+        </MudPaper>
+    </MudTabPanel>
+</MudTabs>

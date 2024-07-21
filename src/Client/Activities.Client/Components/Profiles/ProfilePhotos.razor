@@ -1,0 +1,39 @@
+﻿<MudPaper Width="95%" Style="padding: 10px">
+
+    <MudGrid>
+        <MudItem xs="12">
+            <MudIcon Icon="@Icons.Material.Filled.Photo" Color="Color.Info" Style="float: left"/>
+            @if (IsCurrentUser)
+            {
+                if (AddMode)
+                {
+                    <MudButton Style="float: right" Color="Color.Surface" Variant="Variant.Filled" OnClick="() => AddMode = false">Cancel</MudButton>
+                }
+                else
+                {
+                    <MudButton Style="float: right" Variant="Variant.Filled" Color="Color.Surface" OnClick="() => AddMode = true">Add photo</MudButton>
+                }
+            }
+        </MudItem>
+    </MudGrid>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; margin: 10px">
+        @if (Profile.Photos is not null && !AddMode)
+        {
+            @foreach (var photo in Profile.Photos)
+            {
+                <div style="display: flex; flex-direction: column">
+                    <MudImage Src="@photo.Url" Height="150" Width="150" Style="border-radius: 5%" />
+                    <div style="display: flex; gap: 5px; margin-top: 10px;">
+                        <MudButton Style="width: 70px" Color="Color.Success" Variant="Variant.Filled" OnClick="async () => await SetMainPhoto(photo.Id)" Disabled="photo.IsMain">Main</MudButton>
+                        <MudIconButton Style="width: 70px" Icon="@Icons.Material.Filled.Remove" Color="Color.Error" Variant="Variant.Filled" OnClick="async () => await DeletePhoto(photo.Id)" />
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <PhotoUploadWidget @bind-AddMode="AddMode"/>
+        }
+    </div>
+</MudPaper>

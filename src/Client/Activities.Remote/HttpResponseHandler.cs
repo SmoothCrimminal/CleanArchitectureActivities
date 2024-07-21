@@ -56,6 +56,26 @@ namespace Activities.Remote
             }
         }
 
+        public async Task<Result> PostFileAsync(string endpoint, string base64)
+        {
+            try
+            {
+                var formData = new MultipartFormDataContent
+                {
+                    { new ByteArrayContent(Convert.FromBase64String(base64)), "file", $"{Guid.NewGuid()}.png" }
+                };
+
+                var result = await _httpClient.PostAsync(endpoint, formData);
+                var response = await GetResultBasedOnHttpResponse(result);
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return Result.Fail().WithException(ex);
+            }
+        }
+
         public async Task<Result<R>> PostAsync<T, R>(string endpoint, T payload)
         {
             try

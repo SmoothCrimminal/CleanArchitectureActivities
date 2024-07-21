@@ -1,0 +1,31 @@
+﻿<div class="dropZoneContainer">
+    <InputFile OnChange="OnFileChange" class="file-drop" @ref="_inputFile"/>
+    <div class="dropZoneOverlay">Drag and drop image</div>
+</div>
+
+
+<style>
+    .dropZoneOverlay, .file-drop {
+        width: 283px;
+        height: 100px;
+    }
+    .file-drop {
+        opacity: 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    .dropZoneOverlay {
+        border: dotted 1px lightgray;
+        position: absolute;
+        top: 80px;
+        text-align: center;
+    }
+</style>
+
+<script>
+    function previewImage(imageElement) {
+        const url = URL.createObjectURL(imageElement.files[0]);
+        return url;
+    }
+</script>

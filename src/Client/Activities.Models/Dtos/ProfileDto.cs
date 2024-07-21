@@ -6,6 +6,7 @@
         public string DisplayName { get; set; } = string.Empty;
         public string? Image { get; set; }
         public string? Bio { get; set; }
+        public ICollection<PhotoDto>? Photos { get; set; }
 
         public ProfileDto()
         {

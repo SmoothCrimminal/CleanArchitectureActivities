@@ -16,6 +16,7 @@
 @using Activities.Client.Components.List
 @using Activities.Client.Components.Users
 @using Activities.Client.Components.Profiles
+@using Activities.Client.Components.Common
 @using Activities.Client.Pages.UserManagement
 @using Microsoft.AspNetCore.Components.Authorization;
 @using Microsoft.AspNetCore.Authorization;
@@ -26,5 +27,9 @@
 @*services*@
 @using Activities.Services.Activities
 
+@*cropper*@
+@using Cropper.Blazor.Components
+
 @inject NavigationManager NavigationManager
 @inject ISnackbar SnackBar
+@inject AuthenticationStateProvider AuthStateProvider

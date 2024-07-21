@@ -18,9 +18,6 @@ namespace Activities.Client.Components.Users
         [Inject]
         ILocalStorageService LocalStorageService { get; set; }
 
-        [Inject]
-        AuthenticationStateProvider AuthStateProvider { get; set; }
-
         private bool _isBusy = false;
 
         private async Task Login()

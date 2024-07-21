@@ -17,13 +17,10 @@ namespace Activities.Client.Components.Dashboard.Details
         public EventCallback<ActivityViewModel> ActivityChanged { get; set; }
 
         [Inject]
-        public ActivitiesService ActivitiesService { get; set; } = null!;
-
-        [Inject]
-        public AuthenticationStateProvider AuthStateProvider { get; set; } = null!;
-
-        [Inject]
         public ILocalStorageService LocalStorageService { get; set; } = null!;
+
+        [Inject]
+        ActivitiesService ActivitiesService { get; set; }
 
         private bool _isLoading = false;
 
