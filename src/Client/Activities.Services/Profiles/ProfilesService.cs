@@ -16,6 +16,9 @@ namespace Activities.Services.Profiles
         public async Task<Result<ProfileDto>> GetProfile(string userName)
             => await _httpResponseHandler.GetAsync<ProfileDto>($"/api/profile/{userName}");
 
+        public async Task<Result> UpdateProfile(UpdateProfileDto updateProfileDto)
+            => await _httpResponseHandler.PutAsync("/api/profile", updateProfileDto);
+
         public async Task<Result> UploadPhoto(string base64)
             => await _httpResponseHandler.PostFileAsync("/api/photo", base64);
 

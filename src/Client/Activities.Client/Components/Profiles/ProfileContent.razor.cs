@@ -13,7 +13,7 @@ namespace Activities.Client.Components.Profiles
             get => _profile;
             set
             {
-                if (value is null || _profile?.Image == value.Image)
+                if (value is null || (_profile?.Image == value.Image && _profile?.DisplayName == value.DisplayName && _profile?.Bio == value?.Bio))
                     return;
 
                 _profile = value;

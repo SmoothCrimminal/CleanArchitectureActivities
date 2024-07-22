@@ -1,8 +1,6 @@
 ﻿<MudTabs Border="true" Position="Position.Right" SliderColor="Color.Info">
     <MudTabPanel Text="About">
-        <MudPaper Width="95%" Style="padding: 10px">
-            <MudText>About Content</MudText>
-        </MudPaper>
+        <AboutForm @bind-ProfileViewModel="Profile" IsCurrentUser="IsCurrentUser"/>
     </MudTabPanel>
     <MudTabPanel Text="Photos">
         <ProfilePhotos @bind-Profile="Profile" IsCurrentUser="IsCurrentUser"/>

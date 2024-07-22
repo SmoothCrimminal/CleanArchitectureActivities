@@ -11,5 +11,16 @@ namespace Activities.Client.Components.Profiles
 
         private void MoveToProfile()
             => NavigationManager.NavigateTo($"/profile/{ProfileViewModel.UserName}");
+
+        private string DisplayBio()
+        {
+            if (string.IsNullOrWhiteSpace(ProfileViewModel?.Bio))
+                return string.Empty;
+
+            if (ProfileViewModel.Bio.Length > 40)
+                return $"{ProfileViewModel.Bio[..40]}...";
+
+            return ProfileViewModel.Bio;
+        }
     }
 }

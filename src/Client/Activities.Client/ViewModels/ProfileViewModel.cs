@@ -1,10 +1,13 @@
 ﻿using Activities.Models.Dtos;
+using System.ComponentModel.DataAnnotations;
 
 namespace Activities.Client.ViewModels
 {
     public class ProfileViewModel
     {
         public string UserName { get; set; } = string.Empty;
+
+        [Required]
         public string DisplayName { get; set; } = string.Empty;
         public string? Image { get; set; }
         public string? Bio { get; set; }

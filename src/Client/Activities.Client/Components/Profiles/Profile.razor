@@ -5,7 +5,7 @@
         </CardHeaderAvatar>
         <CardHeaderContent>
             <MudText Typo="Typo.body1" Style="font: bold">@ProfileViewModel.DisplayName</MudText>
-            <MudTextField T="string" ReadOnly="true" Text="Bio goes here" DisableUnderLine="true"/>
+            <MudTextField T="string" ReadOnly="true" Text="@DisplayBio()" DisableUnderLine="true"/>
             <MudDivider />
             <MudText Style="color: gray" Typo="Typo.subtitle1">20 followers</MudText>
         </CardHeaderContent>
