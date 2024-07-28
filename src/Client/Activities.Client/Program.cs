@@ -22,6 +22,7 @@ builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<ProfilesService>();
 
 builder.Services.AddScoped<IHttpResponseHandler, HttpResponseHandler>();
+builder.Services.AddScoped<ISignalRHandler, SignalRHandler>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 builder.Services.AddBlazoredLocalStorage();

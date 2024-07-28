@@ -24,6 +24,7 @@ namespace Application.Activities.Queries
                 .Include(a => a.Attendees)
                 .ThenInclude(u => u.AppUser)
                 .ThenInclude(p => p.Photos)
+                .Include(c => c.Comments)
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
 
             if (activity is null)

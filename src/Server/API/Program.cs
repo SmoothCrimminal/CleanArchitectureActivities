@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Persistence;
 using WebApi.Extensions;
 using WebApi.Middleware;
+using WebApi.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,4 +51,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<ChatHub>("/chat");
+
 app.Run();

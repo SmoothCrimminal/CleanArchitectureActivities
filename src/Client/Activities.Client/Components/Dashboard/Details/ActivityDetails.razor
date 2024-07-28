@@ -4,7 +4,7 @@
         <MudItem xs="8" Style="display: flex; flex-direction: column; gap: 40px">
             <ActivityDetailsHeader @bind-Activity="@Activity" />
             <ActivityDetailsInfo Activity="@Activity" />
-            <ActivityDetailsChat />
+            <ActivityDetailsChat ActivityId="@Activity.Id"/>
         </MudItem>
         <MudItem xs="4">
             <ActivityDetailsSidebar Activity="@Activity"/>

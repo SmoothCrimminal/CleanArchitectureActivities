@@ -14,6 +14,14 @@ namespace Activities.Client.Shared
         public DateTime TimeOfPosting { get; set; }
 
         [Parameter]
-        public string AvatarSrc { get; set; } = default!;
+        public string? AvatarSrc { get; set; }
+
+        [Parameter]
+        public string UserName { get; set; } = string.Empty;
+
+        public void MoveToProfile()
+        {
+            NavigationManager.NavigateTo($"/profile/{UserName}");
+        }
     }
 }

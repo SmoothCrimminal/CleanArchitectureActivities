@@ -1,13 +1,13 @@
-﻿<MudGrid>
-    <MudItem xs="1" Style="display: flex; align-items: center; margin-bottom: 25px">
-        <MudImage Src="@(AvatarSrc ?? "/images/user.png")" Height="40"/>
+﻿<MudGrid Style="margin-top: 10px;">
+    <MudItem xs="2" Style="display: flex; align-items: center; margin-bottom: 25px;">
+        <MudImage Src="@(AvatarSrc ?? "/images/user.png")" Height="60" @onclick="() => MoveToProfile()" Style="cursor: pointer; border-radius: 2px"/>
     </MudItem>
-    <MudItem xs="11" Style="display: flex; flex-direction: column; gap: 4px">
+    <MudItem xs="10" Style="display: flex; flex-direction: column; gap: 4px;">
         <div style="display: flex; gap: 10px">
             <MudText Typo="Typo.body2"><b>@Author</b>,</MudText>
-            <MudText Typo="Typo.caption" Color="Color.Surface">@TimeOfPosting</MudText>
+            <MudText Typo="Typo.caption" Color="Color.Surface">@TimeOfPosting.Humanize(true)</MudText>
         </div>
         <MudText Typo="Typo.body1">@CommentContent</MudText>
-        <MudLink Color="Color.Surface" Typo="Typo.caption">Reply</MudLink>
     </MudItem>
+    <MudDivider />
 </MudGrid>

@@ -5,13 +5,15 @@
         </CardHeaderContent>
     </MudCardHeader>
     <MudCardContent>
-        <Comment Author="Matt" TimeOfPosting="@DateTime.Now.AddHours(-5)" CommentContent="How artistic!"/>
-        <Comment Author="Joe Henderson" TimeOfPosting="@DateTime.Now.AddDays(-2)" CommentContent="Dude, this is awesome. Thanks so much"/>
+        @foreach (var comment in _comments)
+        {
+            <Comment Author="@comment.DisplayName" TimeOfPosting="@comment.CreatedAt" CommentContent="@comment.Body" AvatarSrc="@comment.Image"/>
+        }
     </MudCardContent>
     <MudCardContent>
-        <MudTextField Lines="10" T="string" Variant="Variant.Outlined"/>
+        <MudTextField Lines="10" T="string" Variant="Variant.Outlined" @bind-Text="_commentBody" />
     </MudCardContent>
     <MudCardActions>
-        <MudButton StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info" Variant="Variant.Filled">Add Reply</MudButton>
+        <MudButton StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info" Variant="Variant.Filled" Disabled="@string.IsNullOrWhiteSpace(_commentBody)" OnClick="AddComment">Add Reply</MudButton>
     </MudCardActions>
 </MudCard>
