@@ -7,7 +7,7 @@
             <MudText Typo="Typo.body1" Style="font: bold">@ProfileViewModel.DisplayName</MudText>
             <MudTextField T="string" ReadOnly="true" Text="@DisplayBio()" DisableUnderLine="true"/>
             <MudDivider />
-            <MudText Style="color: gray" Typo="Typo.subtitle1">20 followers</MudText>
+            <MudText Style="color: gray" Typo="Typo.subtitle1">@ProfileViewModel.FollowersCount followers</MudText>
         </CardHeaderContent>
     </MudCardHeader>
 </MudCard>

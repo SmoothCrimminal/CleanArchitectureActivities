@@ -10,7 +10,7 @@ namespace Activities.Client.Components.Profiles
         public ProfileViewModel ProfileViewModel { get; set; } = null!;
 
         private void MoveToProfile()
-            => NavigationManager.NavigateTo($"/profile/{ProfileViewModel.UserName}");
+            => NavigationManager.NavigateTo($"/profile/{ProfileViewModel.UserName}", true);
 
         private string DisplayBio()
         {

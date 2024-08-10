@@ -9,6 +9,10 @@ namespace Application.Profiles
         public string? Bio { get; set; }
         public string Image { get; set; }
         public ICollection<Photo> Photos { get; set; }
+        public bool Following { get; set; }
+        public int FollowersCount { get; set; }
+        public int FollowingCount { get; set; }
+
 
         public static explicit operator Profile(AppUser user) => new Profile
         {
@@ -16,7 +20,9 @@ namespace Application.Profiles
             Bio = user.Bio,
             DisplayName = user.DisplayName,
             Image = user.Photos.FirstOrDefault(x => x.IsMain)?.Url ?? string.Empty,
-            Photos = user.Photos
+            Photos = user.Photos,
+            FollowersCount = user.Followers.Count(),
+            FollowingCount = user.Followings.Count(),
         };
     }
 }

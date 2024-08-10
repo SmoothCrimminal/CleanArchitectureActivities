@@ -26,7 +26,7 @@ namespace Application.Activities.Dtos
             Title = activity.Title,
             Venue = activity.Venue,
             IsCancelled = activity.IsCancelled,
-            Profiles = activity.Attendees.Select(a => (AttendeeDto)a).ToList(),
+
             HostUserName = activity.Attendees.FirstOrDefault(a => a.IsHost)?.AppUser?.UserName ?? string.Empty,
         };
     }

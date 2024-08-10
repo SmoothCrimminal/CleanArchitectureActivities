@@ -9,19 +9,30 @@
                 <MudItem xs="2" Style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px">
                     <div style="display: flex; gap: 30px;">
                         <div>
-                            <MudText Typo="Typo.h4" Align="Align.Center">5</MudText>
+                            <MudText Typo="Typo.h4" Align="Align.Center">@Profile.FollowersCount</MudText>
                             <MudText Align="Align.Center" Typo="Typo.subtitle2">Followers</MudText>
                         </div>
 
                         <div>
-                            <MudText Typo="Typo.h4" Align="Align.Center">40</MudText>
+                            <MudText Typo="Typo.h4" Align="Align.Center">@Profile.FollowingCount</MudText>
                             <MudText Align="Align.Center" Typo="Typo.subtitle2">Following</MudText>
                         </div>
                     </div>
 
                     <MudDivider DividerType="DividerType.FullWidth"/>
 
-                    <MudButton FullWidth="true" Color="Color.Info">Following</MudButton>
+                    @if (!_isCurrentUser)
+                    {
+                        @if (_isCurrentUserFollowing)
+                        {
+                            <MudButton FullWidth="true" Color="Color.Error" OnClick="() => ToogleFollow(false)">Unfollow</MudButton>
+                        }
+                        else
+                        {
+                            <MudButton FullWidth="true" Color="Color.Success" OnClick="() => ToogleFollow(true)">Follow</MudButton>
+                        }
+                    }
+
                 </MudItem>
             </MudGrid>
         </MudPaper>

@@ -1,0 +1,20 @@
+﻿<MudPaper Width="95%" Style="padding: 10px;">
+
+        @if (_isLoading)
+        {
+            <div style="display: flex; justify-content: center;">
+                <MudProgressCircular Size="Size.Large" Color="Color.Error" Indeterminate="true" />
+            </div>
+        }
+
+        @if (_userFollowings is not null)
+        {
+            <div style="display: flex; gap: 20px; flex-wrap: wrap">
+                @foreach (var userFollowing in _userFollowings)
+                {
+                    <Profile ProfileViewModel="userFollowing" />
+                }
+            </div>
+        }
+
+</MudPaper>

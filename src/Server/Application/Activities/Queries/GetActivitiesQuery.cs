@@ -1,5 +1,6 @@
 ﻿using Application.Activities.Dtos;
 using Application.Core;
+using Application.Interfaces;
 using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +14,13 @@ namespace Application.Activities.Queries
     {
         private readonly DataContext _dataContext;
 
-        public GetActivitiesQueryHandler(DataContext dataContext)
+        private readonly IUserAccessor _userAccessor;
+
+        public GetActivitiesQueryHandler(DataContext dataContext, IUserAccessor userAccessor)
         {
             _dataContext = dataContext;
+
+            _userAccessor = userAccessor;
         }
 
         public async Task<Result<List<ActivityDto>>> Handle(GetActivitiesQuery request, CancellationToken cancellationToken)
@@ -24,9 +29,16 @@ namespace Application.Activities.Queries
                 .Include(a => a.Attendees)
                 .ThenInclude(u => u.AppUser)
                 .ThenInclude(p => p.Photos)
+                .Include(a => a.Attendees)
+                .ThenInclude(u => u.AppUser)
+                .ThenInclude(f => f.Followers)
+                .ThenInclude(o => o.Observer)
+                .Include(a => a.Attendees)
+                .ThenInclude(u => u.AppUser)
+                .ThenInclude(f => f.Followings)
                 .ToListAsync(cancellationToken);
 
-            var dtos = activities.ToEnumerableDto().ToList();
+            var dtos = activities.ToEnumerableDto(_userAccessor.GetUserName()).ToList();
 
             return Result<List<ActivityDto>>.Success(dtos);
         }

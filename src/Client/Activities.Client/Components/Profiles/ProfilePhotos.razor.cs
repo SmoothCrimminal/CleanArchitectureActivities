@@ -47,7 +47,10 @@ namespace Activities.Client.Components.Profiles
                 Image = Profile.Image,
                 DisplayName = Profile.DisplayName,
                 Photos = Profile.Photos,
-                UserName = Profile.UserName
+                UserName = Profile.UserName,
+                FollowersCount = Profile.FollowersCount,
+                Following = Profile.Following,
+                FollowingCount = Profile.FollowingCount,
             };
 
             foreach (var photo in profileCopy.Photos!)

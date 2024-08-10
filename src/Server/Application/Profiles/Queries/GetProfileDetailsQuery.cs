@@ -18,7 +18,11 @@ namespace Application.Profiles.Queries
 
         public async Task<Result<Profile>> Handle(GetProfileDetailsQuery request, CancellationToken cancellationToken)
         {
-            var user = await _dataContext.Users.Include(x => x.Photos).FirstOrDefaultAsync(u => u.UserName == request.UserName);
+            var user = await _dataContext.Users
+                .Include(x => x.Photos)
+                .Include(x => x.Followers)
+                .Include(x => x.Followings)
+                .FirstOrDefaultAsync(u => u.UserName == request.UserName);
             if (user is null)
                 return Result<Profile>.Fail("Could not find user");
 

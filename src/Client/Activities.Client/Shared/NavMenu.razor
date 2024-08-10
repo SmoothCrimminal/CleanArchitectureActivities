@@ -23,7 +23,7 @@
     {
         var currentUserResult = await AccountService.GetCurrentUserAsync();
 
-        NavigationManager.NavigateTo($"/profile/{currentUserResult.Payload?.Username}");
+        NavigationManager.NavigateTo($"/profile/{currentUserResult.Payload?.Username}", true);
     }
 
     private async Task LogOut()

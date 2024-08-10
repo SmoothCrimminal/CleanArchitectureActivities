@@ -1,5 +1,6 @@
 ﻿using Application.Activities.Dtos;
 using Application.Core;
+using Application.Interfaces;
 using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +14,13 @@ namespace Application.Activities.Queries
     {
         private readonly DataContext _dataContext;
 
-        public GetActivityDetailsQueryHandler(DataContext dataContext)
+        private readonly IUserAccessor _userAccessor;
+
+        public GetActivityDetailsQueryHandler(DataContext dataContext, IUserAccessor userAccessor)
         {
             _dataContext = dataContext;
+
+            _userAccessor = userAccessor;
         }
 
         public async Task<Result<ActivityDto>> Handle(GetActivityDetailsQuery request, CancellationToken cancellationToken)
@@ -24,6 +29,13 @@ namespace Application.Activities.Queries
                 .Include(a => a.Attendees)
                 .ThenInclude(u => u.AppUser)
                 .ThenInclude(p => p.Photos)
+                .Include(a => a.Attendees)
+                .ThenInclude(u => u.AppUser)
+                .ThenInclude(f => f.Followers)
+                .ThenInclude(o => o.Observer)
+                .Include(a => a.Attendees)
+                .ThenInclude(u => u.AppUser)
+                .ThenInclude(f => f.Followings)
                 .Include(c => c.Comments)
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
 
@@ -31,6 +43,7 @@ namespace Application.Activities.Queries
                 return Result<ActivityDto>.Fail("Could not find activity");
 
             var activityDto = (ActivityDto)activity;
+            activityDto.Profiles = activity.Attendees.ToEnumerableDto(_userAccessor.GetUserName()).ToList();
 
             return Result<ActivityDto>.Success(activityDto);
         }

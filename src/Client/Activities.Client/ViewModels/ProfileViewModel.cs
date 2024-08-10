@@ -11,6 +11,9 @@ namespace Activities.Client.ViewModels
         public string DisplayName { get; set; } = string.Empty;
         public string? Image { get; set; }
         public string? Bio { get; set; }
+        public bool Following { get; set; }
+        public int FollowersCount { get; set; }
+        public int FollowingCount { get; set; }
         public ICollection<PhotoViewModel>? Photos { get; set; }
 
         public ProfileViewModel()
@@ -31,7 +34,10 @@ namespace Activities.Client.ViewModels
             DisplayName = profileDto.DisplayName,
             Image = profileDto.Image,
             UserName = profileDto.UserName,
-            Photos = profileDto.Photos?.Select(x => (PhotoViewModel)x).ToList()
+            Photos = profileDto.Photos?.Select(x => (PhotoViewModel)x).ToList(),
+            FollowersCount = profileDto.FollowersCount,
+            FollowingCount = profileDto.FollowingCount,
+            Following = profileDto.Following,
         };
 
         public static explicit operator ProfileDto(ProfileViewModel profileViewModel) => new ProfileDto

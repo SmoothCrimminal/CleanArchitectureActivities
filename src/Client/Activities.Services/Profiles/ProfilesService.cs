@@ -27,5 +27,11 @@ namespace Activities.Services.Profiles
 
         public async Task<Result> DeletePhoto(string id)
             => await _httpResponseHandler.DeleteAsync($"/api/photo/{id}");
+
+        public async Task<Result> UpdateFollowing(string userName)
+            => await _httpResponseHandler.PostAsync<object?>($"/api/follow/{userName}", null);
+
+        public async Task<Result<IList<ProfileDto>>> GetFollowings(string userName, string predicate)
+            => await _httpResponseHandler.GetAsync<IList<ProfileDto>>($"/api/follow/{userName}?predicate={predicate}");
     }
 }
