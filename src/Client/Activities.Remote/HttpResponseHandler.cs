@@ -1,6 +1,7 @@
 ﻿using Activities.Interfaces.Remote;
 using Activities.Models.Shared;
 using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace Activities.Remote
 {
@@ -40,6 +41,26 @@ namespace Activities.Remote
                 return Result<T>.Fail().WithException(ex);
             }
         }
+
+        public async Task<Result<PaginatedResult<T>>> GetPaginatedResult<T>(string endpoint)
+        {
+            try
+            {
+                var result = await _httpClient.GetAsync(endpoint);
+                if (!result.Headers.TryGetValues("pagination", out var paginationValues))
+                    throw new Exception("Could not get pagination header");
+
+                var pagination = paginationValues.First();
+                var paginationContent = JsonSerializer.Deserialize<Pagination>(pagination, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                var content = await result.Content.ReadFromJsonAsync<T>();
+
+                return Result<PaginatedResult<T>>.Success(new PaginatedResult<T>(content, paginationContent));
+            }
+            catch (Exception ex)
+            {
+                return Result<PaginatedResult<T>>.Fail().WithException(ex);
+            }
+        } 
 
         public async Task<Result> PostAsync<T>(string endpoint, T payload)
         {

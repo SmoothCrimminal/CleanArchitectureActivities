@@ -1,19 +1,67 @@
 ﻿@page "/Activities"
 @using System.Security.Claims
 @using Activities.Client.Extensions
+@using Activities.Models.Shared
 
 @inject ActivitiesService ActivitiesService
 @inject AuthenticationStateProvider AuthStateProvider
 @inject ISnackbar Snackbar
 
-<ActivityDashboard Activities="_activities" />
+@if(!_isLoading && _activities is not null)
+{
+    <InfiniteScroll LoadNextData="HandleNext">
+        <ActivityDashboard Activities="_activities" @bind-ActivityParams="ActivityParams" />
+    </InfiniteScroll>
+}
+else
+{
+    <MudGrid Style="padding: 15px; margin: 10px">
+        @for (var index = 0; index < 5; index++)
+        {
+            <MudItem xs="8">
+                <ActivityListItemPlaceholder />
+            </MudItem>
+        }
+    </MudGrid>
+}
+
 
 @code {
+    private ActivityParams _activityParams = new();
+    public ActivityParams ActivityParams 
+    { 
+        get => _activityParams;
+        set
+        {
+            if (value is null)
+                return;
+
+            _activities = null;
+            ActivityParams.PageNumber = 1;
+
+            Task.Run(async () => await LoadActivities(ActivityParams));
+
+            StateHasChanged();
+        } 
+    }
+
     private List<ActivityViewModel>? _activities;
+    private Pagination _pagination;
+    private bool _dataAlreadyLoading;
+    private bool _isLoading;
 
     protected override async Task OnInitializedAsync()
     {
-        var activitiesResult = await ActivitiesService.GetActivities();
+        await LoadActivities(_activityParams);
+    }
+
+    private async Task LoadActivities(ActivityParams @params)
+    {
+        _isLoading = true;
+
+        await Task.Delay(1000);
+
+        var activitiesResult = await ActivitiesService.GetActivities(@params);
         if (activitiesResult.Failed)
         {
             if (activitiesResult.Exception is not null)
@@ -21,17 +69,26 @@
             else
                 Snackbar.Add(activitiesResult.ErrorMessage, Severity.Error);
 
+            _isLoading = false;
             return;
         }
 
-        _activities = new List<ActivityViewModel>();
+        if (_activities is null)
+        {
+            _activities = new List<ActivityViewModel>();
+        }
+
+        _pagination = activitiesResult.Payload!.Pagination;
 
         var authState = await AuthStateProvider.GetAuthenticationStateAsync();
         var userName = authState.GetUserName();
         if (string.IsNullOrWhiteSpace(userName))
+        {
+            _isLoading = false;
             return;
+        }
 
-        foreach (var activity in activitiesResult.Payload)
+        foreach (var activity in activitiesResult.Payload!.Data)
         {
             var activityDto = (ActivityViewModel)activity;
 
@@ -41,5 +98,34 @@
 
             _activities.Add(activityDto);
         }
+
+        _isLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task HandleNext()
+    {
+        if (_dataAlreadyLoading)
+            return;
+
+        if (_pagination.TotalPages == _pagination.CurrentPage)
+            return;
+
+        _dataAlreadyLoading = true;
+
+        if (_activityParams is null)
+        {
+            await LoadActivities(new ActivityParams
+            {
+                PageNumber = _pagination.CurrentPage + 1
+            });
+        }
+        else
+        {
+            _activityParams.PageNumber = _pagination.CurrentPage + 1;
+            await LoadActivities(_activityParams);
+        }
+
+        _dataAlreadyLoading = false;
     }
 }

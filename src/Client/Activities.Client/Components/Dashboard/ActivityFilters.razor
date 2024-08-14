@@ -2,14 +2,14 @@
     <MudPaper Style="padding: 10px">
         <MudNavMenu>
             <MudNavGroup Icon="@Icons.Material.Filled.FilterList" Title="Filters" @bind-Expanded="_isExpanded">
-                <MudMenuItem>All activities</MudMenuItem>
-                <MudMenuItem>I'm going</MudMenuItem>
-                <MudMenuItem>I'm hosting</MudMenuItem>
+                <MudNavLink OnClick="() => AllFilterSelected()">All activities</MudNavLink>
+                <MudNavLink OnClick="() => IsGoingFilterSelected()">I'm going</MudNavLink>
+                <MudNavLink OnClick="() => IsHostFilterSelected()">I'm hosting</MudNavLink>
             </MudNavGroup>
         </MudNavMenu>
     </MudPaper>
     @if(_isExpanded)
     {
-        <MudDatePicker PickerVariant="PickerVariant.Static" Orientation="Orientation.Landscape" Date="@(DateTime.Today)" />
+        <MudDatePicker PickerVariant="PickerVariant.Static" Orientation="Orientation.Landscape" @bind-Date="Date"/>
     }
 </div>

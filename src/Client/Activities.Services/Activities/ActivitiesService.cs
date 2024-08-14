@@ -1,6 +1,8 @@
 ﻿using Activities.Interfaces.Remote;
 using Activities.Models.Dtos;
 using Activities.Models.Shared;
+using Microsoft.AspNetCore.Http.Extensions;
+using System.Globalization;
 using System.Net.Http.Json;
 
 namespace Activities.Services.Activities
@@ -14,8 +16,22 @@ namespace Activities.Services.Activities
             _httpResponseHandler = httpResponseHandler;
         }
 
-        public async Task<Result<IEnumerable<ActivityDto>>> GetActivities()
-            => await _httpResponseHandler.GetAsync<IEnumerable<ActivityDto>>("/api/activities");
+        public async Task<Result<PaginatedResult<IEnumerable<ActivityDto>>>> GetActivities(ActivityParams? @params = null)
+        {
+            if (@params is null)
+                return await _httpResponseHandler.GetPaginatedResult<IEnumerable<ActivityDto>>("/api/activities");
+
+            var queryBuilder = new QueryBuilder
+            {
+                { "pageNumber", @params.PageNumber.ToString() },
+                { "pageSize", @params.PageSize.ToString() },
+                { "startDate", @params.StartDate.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture) },
+                { "isHost", @params.IsHost.ToString() },
+                { "isGoing", @params.IsGoing.ToString() }
+            };
+
+            return await _httpResponseHandler.GetPaginatedResult<IEnumerable<ActivityDto>>($"/api/activities{queryBuilder}");
+        }
 
         public async Task<Result> UpdateActivity(ActivityDto dto)
             => await _httpResponseHandler.PutAsync($"/api/activities/{dto.Id}", dto);
