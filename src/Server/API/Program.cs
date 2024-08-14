@@ -21,7 +21,22 @@ builder.Services.AddIdenttiyServices(builder.Configuration);
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
-app.UseSwaggerUI();
+
+app.UseXContentTypeOptions();
+app.UseReferrerPolicy(opt => opt.NoReferrer());
+app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
+app.UseXfo(opt => opt.Deny());
+
+// TODO: Change to Csp if ever going to publish
+app.UseCspReportOnly(opt => opt
+   .BlockAllMixedContent()
+   .StyleSources(s => s.Self())
+   .FontSources(s => s.Self())
+   .FormActions(s => s.Self())
+   .FrameAncestors(s => s.Self())
+   .ImageSources(s => s.Self())
+   .ScriptSources(s => s.Self()));
+
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
@@ -41,8 +56,21 @@ catch (Exception ex)
     logger.LogError(ex, "Error occured during migration");
 }
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+else
+{
+    app.Use(async (context, next) =>
+    {
+        context.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000");
+        await next.Invoke();
+    });
+}
+
 // Configure the HTTP request pipeline.
-app.UseSwagger();
 app.UseHttpsRedirection();
 
 app.UseCors("CorsPolicy");
